@@ -95,13 +95,13 @@ namespace ADarkHeroDiscordBot.bot
 				{
 					//If there are manipulators, apply them at the end.
 					String manipulator = match.Groups[4].Value;
-					double manipulatorValue = Convert.ToInt16(match.Groups[5].Value);
+					double manipulatorValue = Convert.ToDouble(match.Groups[5].Value.Replace(".", ","));
 
 					sum = MathOperation(manipulator, sum, manipulatorValue);
 
-					returnStr += "Das Ergebnis wurde um **" + manipulator + " " + manipulatorValue.ToString() + "** abgeändert. ";
+					returnStr += "Das Ergebnis wurde um **" + manipulator + manipulatorValue.ToString() + "** abgeändert. ";
 				}
-				catch (Exception ex) { }
+				catch (Exception ex) { Console.WriteLine(ex.ToString()); }
 
 				returnStr += "\r\nDas Gesamtergebnis beträgt **" + sum.ToString() + "**!";
 

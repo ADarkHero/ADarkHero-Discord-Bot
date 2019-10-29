@@ -53,6 +53,7 @@ namespace ADarkHeroDiscordBot.bot
 
 			if (content.Equals("20") || content.Contains("**20**"))
 			{
+				//Facepalm emoji
 				await usermsg.AddReactionAsync(new Emoji("\U0001F926"));
 			}
 		}

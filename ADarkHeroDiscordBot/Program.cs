@@ -57,7 +57,7 @@ namespace ADarkHeroDiscordBot
 			if (msg.Content.StartsWith(Sett.DiscordChar))
 			{
 
-				command = msg.Content.Substring(Sett.DiscordChar.Length);
+				command = msg.Content.Substring(Sett.DiscordChar.Length).ToLower();
 
 				//Read functions from database
 				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null";
