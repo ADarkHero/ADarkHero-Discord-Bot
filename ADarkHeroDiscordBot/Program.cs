@@ -18,7 +18,7 @@ namespace adhdb
 		static Form1 MyForm;
 
 		private DiscordSocketClient _client;
-		private SettingsReader Sett = new SettingsReader();
+		private SQLHelper sqlh = new SQLHelper();
 
 
 		public static void Main(string[] args)
@@ -38,7 +38,7 @@ namespace adhdb
 			_client = new DiscordSocketClient();
 			_client.MessageReceived += MessageReceivedAsync;
 			_client.ReactionAdded += ReactionReceivedAsync;
-			await _client.LoginAsync(TokenType.Bot, Sett.DiscordToken);
+			await _client.LoginAsync(TokenType.Bot, sqlh.DiscordToken);
 			await _client.StartAsync();
 
 			// Block this task until the program is closed.
@@ -55,14 +55,14 @@ namespace adhdb
 			//Checks for commands
 			String command = "";
 
-			if (msg.Content.StartsWith(Sett.DiscordChar))
+			if (msg.Content.StartsWith(sqlh.DiscordChar))
 			{
 
-				command = msg.Content.Substring(Sett.DiscordChar.Length).ToLower();
+				command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower();
 
 				//Read functions from database
 				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null";
-				DataTable sqlResult = Sett.selectSQL(sql);
+				DataTable sqlResult = sqlh.selectSQL(sql);
 
 				foreach (DataRow row in sqlResult.Rows)
 				{

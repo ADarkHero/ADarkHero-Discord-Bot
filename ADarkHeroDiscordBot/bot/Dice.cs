@@ -13,7 +13,7 @@ namespace adhdb.bot
 {
 	public class Dice
 	{
-		private SettingsReader Sett = new SettingsReader();
+		private SQLHelper sqlh = new SQLHelper();
 		private SocketMessage Msg;
 		private String Com = "";
 		private DataRow Row = null;

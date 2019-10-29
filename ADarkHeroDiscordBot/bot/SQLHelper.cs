@@ -1,32 +1,45 @@
-﻿using System;
+﻿using Discord.WebSocket;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SQLite;
-using System.IO;
-using System.Data;
 
 namespace adhdb.bot
 {
-	class SettingsReader
+	class SQLHelper
 	{
 		private SQLiteConnection sqlite = new SQLiteConnection("Data Source=database.db");
 
-		//TODO: Put in config-file
+		private SocketMessage Msg;
+		private String Com = "";
+		private DataRow Row = null;
+
 		public string DiscordChar { get; set; } //Character, that indicates the start of a discord command
 		public string DiscordToken { get; } //Token of the Discord Bot
 
-
-		public SettingsReader()
+		public SQLHelper()
 		{
 			DiscordToken = File.ReadAllText("token.txt");
 			readSettings();
 		}
+		public SQLHelper(SocketMessage message, string command, DataRow drow)
+		{
+			Msg = message;
+			Com = command;
+			Row = drow;
+		}
 
+
+		/// <summary>
+		/// 
+		/// </summary>
 		private void readSettings()
 		{
-			DataTable botSettings = selectSQL("SELECT * FROM settings");
+			DataTable botSettings = this.selectSQL("SELECT * FROM settings");
 			foreach (DataRow row in botSettings.Rows)
 			{
 				if (row["SettingsName"].ToString() == "DiscordChar")
@@ -35,6 +48,23 @@ namespace adhdb.bot
 				}
 			}
 
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public String ListAllFunctions()
+		{
+			String returnString = "";
+
+			DataTable commands = selectSQL("SELECT * FROM commands ORDER BY CommandName");
+			foreach (DataRow row in commands.Rows)
+			{
+				returnString += "**" + DiscordChar + row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
+			}
+
+			return returnString;
 		}
 
 		/// <summary>

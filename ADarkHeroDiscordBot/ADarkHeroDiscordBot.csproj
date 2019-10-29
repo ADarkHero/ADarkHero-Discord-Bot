@@ -186,7 +186,7 @@
   <ItemGroup>
     <Compile Include="bot\Dice.cs" />
     <Compile Include="bot\Reactor.cs" />
-    <Compile Include="bot\SettingsReader.cs" />
+    <Compile Include="bot\SQLHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
