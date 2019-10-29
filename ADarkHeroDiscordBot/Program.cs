@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using adhdb.bot;
 using System.Data;
 using System.Reflection;
+using System.IO;
 
 namespace adhdb
 {
