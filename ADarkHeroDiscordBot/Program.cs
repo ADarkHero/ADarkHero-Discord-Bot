@@ -36,6 +36,7 @@ namespace ADarkHeroDiscordBot
 			//Starts the discord bot
 			_client = new DiscordSocketClient();
 			_client.MessageReceived += MessageReceivedAsync;
+			_client.ReactionAdded += ReactionReceivedAsync;
 			await _client.LoginAsync(TokenType.Bot, Sett.DiscordToken);
 			await _client.StartAsync();
 
@@ -76,10 +77,29 @@ namespace ADarkHeroDiscordBot
 					}
 				}
 			}
+			//Adds reactions to stuff
+			Reactor re = new Reactor(msg);
 
 			//Log message
 			Console.WriteLine(msg.ToString());
 		}
+
+		private async Task ReactionReceivedAsync(Cacheable<IUserMessage, ulong> cachedMessage,
+			ISocketMessageChannel originChannel, SocketReaction reaction)
+		{
+			var message = await cachedMessage.GetOrDownloadAsync();
+
+			//Hash Code for ❤ because other methods don't seem to work?
+			//If someone reacts with a heart, the bot reacts with a heart too. Love for everyone! <3
+			if (reaction.Emote.GetHashCode() == -842361668)
+			{
+				Reactor re = new Reactor();
+				await re.AddNewReaction(message, reaction.Emote.GetHashCode());
+			}
+		}
+
+
+
 
 		/// <summary>
 		/// We give the function an object name and a method name and the function exectues it.
