@@ -1,4 +1,4 @@
-﻿using ADarkHeroDiscordBot.bot;
+﻿using adhdb.bot;
 using Discord;
 using Discord.WebSocket;
 using System;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ADarkHeroDiscordBot.bot
+namespace adhdb.bot
 {
 	public class Dice
 	{
@@ -17,7 +17,7 @@ namespace ADarkHeroDiscordBot.bot
 		private SocketMessage Msg;
 		private String Com = "";
 		private DataRow Row = null;
-		Random random = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
+		Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
 
 		public Dice(SocketMessage message, string command, DataRow drow)
 		{
@@ -33,7 +33,7 @@ namespace ADarkHeroDiscordBot.bot
 		/// <returns>The number, that got rolled.</returns>
 		private int Roll(int roll)
 		{
-			int diceRoll = random.Next(1, roll + 1);
+			int diceRoll = rand.Next(1, roll + 1);
 
 			return diceRoll;
 		}
@@ -111,6 +111,32 @@ namespace ADarkHeroDiscordBot.bot
 			{
 				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. 1w20, 2w6, 3d20, 4d6 etc.\r\n\r\n" + ex.ToString();
 			}
+		}
+		/// <summary>
+		/// Flips a coin and returns the string, to be sent by the bot.
+		/// </summary>
+		/// <returns>String, that should be displayed.</returns>
+		public String CoinFlipStr()
+		{
+			Boolean cf = CoinFlip();
+			if (cf)
+			{
+				return "KOPF!";
+			}
+			return "ZAHL!";
+		}
+
+		/// <summary>
+		/// Flips a coin.
+		/// </summary>
+		/// <returns>True/False</returns>
+		private Boolean CoinFlip()
+		{
+			if (rand.Next(0, 2) == 1)
+			{
+				return true;
+			}
+			return false;
 		}
 
 		/// <summary>

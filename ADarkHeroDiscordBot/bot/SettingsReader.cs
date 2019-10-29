@@ -7,7 +7,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Data;
 
-namespace ADarkHeroDiscordBot.bot
+namespace adhdb.bot
 {
 	class SettingsReader
 	{

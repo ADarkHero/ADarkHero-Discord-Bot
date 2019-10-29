@@ -1,4 +1,4 @@
-﻿namespace ADarkHeroDiscordBot
+﻿namespace adhdb
 {
 	partial class Form1
 	{

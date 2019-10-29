@@ -6,11 +6,11 @@ using System.Windows.Forms;
 using Discord;
 using Discord.WebSocket;
 using System.Text.RegularExpressions;
-using ADarkHeroDiscordBot.bot;
+using adhdb.bot;
 using System.Data;
 using System.Reflection;
 
-namespace ADarkHeroDiscordBot
+namespace adhdb
 {
 	public class Program
 	{
@@ -112,7 +112,7 @@ namespace ADarkHeroDiscordBot
 		{
 			try
 			{
-				Type t = Type.GetType("ADarkHeroDiscordBot.bot." + row["CommandObject"].ToString());
+				Type t = Type.GetType("adhdb.bot." + row["CommandObject"].ToString());
 				Object[] args = { msg, command, row };
 				object o = Activator.CreateInstance(t, args);
 

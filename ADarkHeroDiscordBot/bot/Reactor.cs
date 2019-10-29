@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADarkHeroDiscordBot.bot
+namespace adhdb.bot
 {
 	class Reactor
 	{
