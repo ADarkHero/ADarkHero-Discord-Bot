@@ -60,7 +60,6 @@ namespace ADarkHeroDiscordBot
 
 				//Read functions from database
 				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null";
-				Console.WriteLine(sql);
 				DataTable sqlResult = Sett.selectSQL(sql);
 
 				foreach (DataRow row in sqlResult.Rows)
@@ -93,9 +92,8 @@ namespace ADarkHeroDiscordBot
 		{
 			try
 			{
-				Console.WriteLine(row["CommandObject"].ToString());
 				Type t = Type.GetType("ADarkHeroDiscordBot.bot." + row["CommandObject"].ToString());
-				Object[] args = { msg };
+				Object[] args = { msg, command, row };
 				object o = Activator.CreateInstance(t, args);
 
 				Type thisType = o.GetType();
