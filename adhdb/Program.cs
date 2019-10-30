@@ -95,7 +95,7 @@ namespace adhdb
 			if (reaction.Emote.GetHashCode() == -842361668)
 			{
 				Reactor re = new Reactor();
-				await re.AddNewReaction(message, reaction.Emote.GetHashCode());
+				await re.AddNewReaction(message, new Emoji("❤"));
 			}
 		}
 

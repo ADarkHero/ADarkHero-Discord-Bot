@@ -41,6 +41,7 @@ namespace adhdb.bot
 			if (content.Contains("69") ||
 				content.Contains("lewd") ||
 				content.Contains("nude") ||
+				content.Contains("penis") ||
 				content.Contains("sex"))
 			{
 				await usermsg.AddReactionAsync(new Emoji("😏"));
@@ -59,9 +60,9 @@ namespace adhdb.bot
 		}
 
 
-		public async Task AddNewReaction(IUserMessage message, int v)
+		public async Task AddNewReaction(IUserMessage message, Emoji emo)
 		{
-			await message.AddReactionAsync(new Emoji("❤"));
+			await message.AddReactionAsync(emo);
 		}
 	}
 }

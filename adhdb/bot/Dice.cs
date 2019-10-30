@@ -47,7 +47,7 @@ namespace adhdb.bot
 			try
 			{
 				int diceRoll = Convert.ToInt16(Regex.Replace(Com, "[^0-9]", ""));
-				return "<@" + Msg.Author.Id + "> hat eine " + Roll(diceRoll) + " gewürfelt!";
+				return "<@" + Msg.Author.Id + "> hat eine **" + Roll(diceRoll) + "** gewürfelt!";
 			}
 			catch (Exception ex)
 			{

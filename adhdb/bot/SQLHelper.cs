@@ -31,6 +31,7 @@ namespace adhdb.bot
 			Msg = message;
 			Com = command;
 			Row = drow;
+			readSettings();
 		}
 
 
@@ -61,7 +62,12 @@ namespace adhdb.bot
 			DataTable commands = selectSQL("SELECT * FROM commands ORDER BY CommandName");
 			foreach (DataRow row in commands.Rows)
 			{
-				returnString += "**" + DiscordChar + row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
+				returnString += "**";
+				if (row["CommandType"].ToString() != "1")
+				{
+					returnString += DiscordChar;
+				}
+				returnString += row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
 			}
 
 			return returnString;
