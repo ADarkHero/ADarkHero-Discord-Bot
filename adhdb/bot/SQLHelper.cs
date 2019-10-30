@@ -59,7 +59,7 @@ namespace adhdb.bot
 		{
 			String returnString = "";
 
-			DataTable commands = selectSQL("SELECT * FROM commands ORDER BY CommandName");
+			DataTable commands = selectSQL("SELECT * FROM commands WHERE CommandAlias is null ORDER BY CommandName");
 			foreach (DataRow row in commands.Rows)
 			{
 				returnString += "**";

@@ -139,6 +139,30 @@ namespace adhdb.bot
 			return false;
 		}
 
+
+		/// <summary>
+		/// Does simple math.
+		/// </summary>
+		/// <returns>A string that contains the result of the math.</returns>
+		public String DoSimpleMathStr()
+		{
+			var match = Regex.Match(Com, @Row["CommandRegex"].ToString());
+
+			try
+			{
+				String mathOperator = match.Groups[2].Value;
+				double x = Convert.ToDouble(match.Groups[1].Value);
+				double y = Convert.ToDouble(match.Groups[3].Value);
+				double result = MathOperation(mathOperator, x, y);
+
+				return "Das Ergebnis von **" + x.ToString() + mathOperator + y.ToString() + "** ist **" + result.ToString() + "**!";
+			}
+			catch (Exception ex)
+			{
+				return "Ungültige Eingabe.\r\n\r\n" + ex.ToString();
+			}
+		}
+
 		/// <summary>
 		/// Makes mathematical operators out of "String operators". "Converts" (String)"+" in +
 		/// </summary>
