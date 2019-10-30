@@ -124,19 +124,16 @@ namespace adhdb.bot
 			if (stringPairs.Length > 1)
 			{
 				String talent = stringPairs[1];
-				String sql = "SELECT * FROM dsa WHERE DSATalentName = '" + talent + "'";
+				String sql = "SELECT * FROM dsa WHERE DSATalentName LIKE '" + talent + "' COLLATE NOCASE";
 				DataTable dt = sqlh.SelectSQL(sql);
 
 				//Search for the right talent
 				foreach (DataRow row in dt.Rows)
 				{
-					if (row["DSATalentName"].ToString() == talent)
-					{
-						returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
-					"**" + row["DSATrait1"].ToString() + ": " + Roll(20).ToString() + "** | " +
-					"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
-					"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**!";
-					}
+					returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
+				"**" + row["DSATrait1"].ToString() + ": " + Roll(20).ToString() + "** | " +
+				"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
+				"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**";
 				}
 				return returnString;
 			}
