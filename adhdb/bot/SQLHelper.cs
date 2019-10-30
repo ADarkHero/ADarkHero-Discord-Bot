@@ -112,7 +112,7 @@ namespace adhdb.bot
 		{
 			String returnString = "";
 
-			DataTable commands = SelectSQL("SELECT * FROM dsa ORDER BY DSATalentName");
+			DataTable commands = SelectSQL("SELECT * FROM dsa WHERE DSAAlias is null ORDER BY DSATalentName");
 			foreach (DataRow row in commands.Rows)
 			{
 				returnString += "**" + row["DSATalentName"].ToString() + "** " +

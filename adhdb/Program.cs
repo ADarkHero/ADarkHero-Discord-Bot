@@ -95,7 +95,6 @@ namespace adhdb
 								await msg.Channel.SendMessageAsync(sendMessage.Substring(0, 1999)); //Post 2000 chars
 								sendMessage = sendMessage.Substring(1999); //Cut first 2000 chars
 							}
-
 						}
 						await msg.Channel.SendMessageAsync(sendMessage);
 					}

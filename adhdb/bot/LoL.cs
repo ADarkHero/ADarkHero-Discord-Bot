@@ -50,7 +50,7 @@ namespace adhdb.bot
 					return "Der Champion wurde nicht gefunden! Bitte Championnamen ohne Leer- und Sonderzeichen eingeben! Groß-/Kleinschreibung ist egal. z.B. !lol kogmaw";
 				}
 
-				String build = "";
+				String build = "**League of Legends Build for " + stringPairs[1] + "**\r\n" + url + "\r\n\r\n";
 				String[,] buildHelper = new String[4, 2] {
 				{ "Starting Items", "3" },
 				{ "Boots", "1" },

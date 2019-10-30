@@ -135,6 +135,10 @@ namespace adhdb.bot
 				"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
 				"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**";
 				}
+				if (String.IsNullOrEmpty(returnString))
+				{
+					return "Das Talent existiert nicht. Wurde sich eventuell vertippt?";
+				}
 				return returnString;
 			}
 			else
@@ -157,9 +161,9 @@ namespace adhdb.bot
 			Boolean cf = CoinFlip();
 			if (cf)
 			{
-				return "KOPF!";
+				return "yes.";
 			}
-			return "ZAHL!";
+			return "no";
 		}
 
 		/// <summary>
