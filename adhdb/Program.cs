@@ -70,13 +70,21 @@ namespace adhdb
 
 				foreach (DataRow row in sqlResult.Rows)
 				{
+					/*
+					 * Command types
+					 * 0: Simple
+					 * 99: User generated
+					 * 100: Regex
+					 * 101: Complex
+					 */
 					//Simple functions
-					if (row["CommandName"].ToString() == command && (row["CommandType"].ToString() == "0" || row["CommandType"].ToString() == "4"))
+					int commandType = Convert.ToInt16(row["CommandType"].ToString());
+					if (row["CommandName"].ToString() == command && commandType < 100)
 					{
 						await msg.Channel.SendMessageAsync(row["CommandComment"].ToString());
 					}
 					//Regex and more complex functions
-					else if ((row["CommandType"].ToString() == "1" && Regex.Match(command, row["CommandRegex"].ToString()).Success) || row["CommandType"].ToString() == "2")
+					else if (commandType >= 100 && (Regex.Match(command, row["CommandRegex"].ToString()).Success || row["CommandName"].ToString() == command))
 					{
 						await msg.Channel.SendMessageAsync(ExecuteFunctionByString(msg, command, row));
 					}

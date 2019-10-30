@@ -47,7 +47,7 @@ namespace adhdb.bot
 					//Insert command into db
 					SQLHelper sqlh = new SQLHelper();
 
-					return sqlh.InsertNewCommand(stringPairs[1], commandText); ;
+					return sqlh.InsertNewCommand(stringPairs[1], commandText);
 				}
 
 				return "Bitte gib alle notwendigen Argumente ein. z.B.: !addcommand ping Pong Pong Pong.";

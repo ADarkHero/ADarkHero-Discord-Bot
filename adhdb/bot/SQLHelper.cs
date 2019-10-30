@@ -60,7 +60,7 @@ namespace adhdb.bot
 		{
 			SQLiteCommand insertSQL = new SQLiteCommand(
 				"INSERT INTO commands (CommandName, CommandComment, CommandType, CommandRegex, CommandObject, CommandFunction, CommandAlias, CommandRights) " +
-				"VALUES (@param1,@param2,4,null,null,null,null,null)", sqlite);
+				"VALUES (@param1,@param2,99,null,null,null,null,null)", sqlite);
 			insertSQL.Parameters.Add(new SQLiteParameter("@param1", commandName));
 			insertSQL.Parameters.Add(new SQLiteParameter("@param2", commandText));
 
