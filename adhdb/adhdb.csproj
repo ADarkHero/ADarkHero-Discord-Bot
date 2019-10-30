@@ -184,6 +184,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bot\CommandManipulator.cs" />
     <Compile Include="bot\Dice.cs" />
     <Compile Include="bot\Reactor.cs" />
     <Compile Include="bot\SQLHelper.cs" />

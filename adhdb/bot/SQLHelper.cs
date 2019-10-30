@@ -54,6 +54,36 @@ namespace adhdb.bot
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="v"></param>
+		/// <param name="commandText"></param>
+		public String InsertNewCommand(string commandName, string commandText)
+		{
+			SQLiteCommand insertSQL = new SQLiteCommand(
+				"INSERT INTO commands (CommandName, CommandComment, CommandType, CommandRegex, CommandObject, CommandFunction, CommandAlias, CommandRights) " +
+				"VALUES (@param1,@param2,4,null,null,null,null,null)", sqlite);
+			insertSQL.Parameters.Add(new SQLiteParameter("@param1", commandName));
+			insertSQL.Parameters.Add(new SQLiteParameter("@param2", commandText));
+
+			try
+			{
+				sqlite.Open();  //Initiate connection to the db
+
+				insertSQL.ExecuteNonQuery();
+				return "Das folgende command wurde erfolgreich angelegt:\r\n" + commandName + " | " + commandText;
+			}
+			catch (Exception ex)
+			{
+				return "Fehler beim Anlegen des commands.\r\n\r\n" + ex.Message;
+			}
+
+
+		}
+
+
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <returns></returns>
 		public String ListAllFunctions()
 		{

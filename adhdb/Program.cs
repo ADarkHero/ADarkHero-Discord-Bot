@@ -58,7 +58,11 @@ namespace adhdb
 			if (msg.Content.StartsWith(sqlh.DiscordChar))
 			{
 
-				command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower();
+				command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower(); //Cuts discord char and makes the string lowercase
+				if (command.Contains(" "))
+				{
+					command = command.Substring(0, command.IndexOf(" ")); //Cuts everything after first space
+				}
 
 				//Read functions from database
 				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null COLLATE NOCASE";
@@ -67,7 +71,7 @@ namespace adhdb
 				foreach (DataRow row in sqlResult.Rows)
 				{
 					//Simple functions
-					if (row["CommandName"].ToString() == command && row["CommandType"].ToString() == "0")
+					if (row["CommandName"].ToString() == command && (row["CommandType"].ToString() == "0" || row["CommandType"].ToString() == "4"))
 					{
 						await msg.Channel.SendMessageAsync(row["CommandComment"].ToString());
 					}
