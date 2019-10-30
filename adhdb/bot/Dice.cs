@@ -112,6 +112,45 @@ namespace adhdb.bot
 				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. 1w20, 2w6, 3d20, 4d6 etc.\r\n\r\n" + ex.ToString();
 			}
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public String RollDSA()
+		{
+			String[] stringPairs = Msg.Content.Split(' ');
+			String returnString = "";
+			if (stringPairs.Length > 1)
+			{
+				String talent = stringPairs[1];
+				String sql = "SELECT * FROM dsa WHERE DSATalentName = '" + talent + "'";
+				DataTable dt = sqlh.SelectSQL(sql);
+
+				//Search for the right talent
+				foreach (DataRow row in dt.Rows)
+				{
+					if (row["DSATalentName"].ToString() == talent)
+					{
+						returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
+					"**" + row["DSATrait1"].ToString() + ": " + Roll(20).ToString() + "** | " +
+					"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
+					"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**!";
+					}
+				}
+				return returnString;
+			}
+			else
+			{
+				returnString = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **" +
+					Roll(20).ToString() + " " + Roll(20).ToString() + " " + Roll(20).ToString() + "**!";
+			}
+
+			return returnString;
+		}
+
+
+
 		/// <summary>
 		/// Flips a coin and returns the string, to be sent by the bot.
 		/// </summary>

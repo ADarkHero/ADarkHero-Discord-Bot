@@ -66,7 +66,7 @@ namespace adhdb
 
 				//Read functions from database
 				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null COLLATE NOCASE";
-				DataTable sqlResult = sqlh.selectSQL(sql);
+				DataTable sqlResult = sqlh.SelectSQL(sql);
 
 				foreach (DataRow row in sqlResult.Rows)
 				{
@@ -86,7 +86,18 @@ namespace adhdb
 					//Regex and more complex functions
 					else if (commandType >= 100 && (Regex.Match(command, row["CommandRegex"].ToString()).Success || row["CommandName"].ToString() == command))
 					{
-						await msg.Channel.SendMessageAsync(ExecuteFunctionByString(msg, command, row));
+						String sendMessage = ExecuteFunctionByString(msg, command, row);
+						//Discord doesn't like too long messages. Split it, if its too long.
+						if (sendMessage.Length > 2000)
+						{
+							while (sendMessage.Length > 2000)
+							{
+								await msg.Channel.SendMessageAsync(sendMessage.Substring(0, 1999)); //Post 2000 chars
+								sendMessage = sendMessage.Substring(1999); //Cut first 2000 chars
+							}
+
+						}
+						await msg.Channel.SendMessageAsync(sendMessage);
 					}
 				}
 			}

@@ -40,7 +40,7 @@ namespace adhdb.bot
 		/// </summary>
 		private void readSettings()
 		{
-			DataTable botSettings = this.selectSQL("SELECT * FROM settings");
+			DataTable botSettings = this.SelectSQL("SELECT * FROM settings");
 			foreach (DataRow row in botSettings.Rows)
 			{
 				if (row["SettingsName"].ToString() == "DiscordChar")
@@ -89,7 +89,7 @@ namespace adhdb.bot
 		{
 			String returnString = "";
 
-			DataTable commands = selectSQL("SELECT * FROM commands WHERE CommandAlias is null ORDER BY CommandName");
+			DataTable commands = SelectSQL("SELECT * FROM commands WHERE CommandAlias is null ORDER BY CommandName");
 			foreach (DataRow row in commands.Rows)
 			{
 				returnString += "**";
@@ -103,12 +103,31 @@ namespace adhdb.bot
 			return returnString;
 		}
 
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public String ListAllDSAFunctions()
+		{
+			String returnString = "";
+
+			DataTable commands = SelectSQL("SELECT * FROM dsa ORDER BY DSATalentName");
+			foreach (DataRow row in commands.Rows)
+			{
+				returnString += "**" + row["DSATalentName"].ToString() + "** " +
+					"(" + row["DSATrait1"].ToString() + ", " + row["DSATrait2"].ToString() + ", " + row["DSATrait3"].ToString() + "), ";
+			}
+
+			return returnString;
+		}
+
 		/// <summary>
 		/// Reads stuff from sql database.
 		/// </summary>
 		/// <param name="query">Select query that should be executed.</param>
 		/// <returns>Datatable with the queries content.</returns>
-		public DataTable selectSQL(string query)
+		public DataTable SelectSQL(string query)
 		{
 			SQLiteDataAdapter ad;
 			DataTable dt = new DataTable();
@@ -124,7 +143,7 @@ namespace adhdb.bot
 			}
 			catch (SQLiteException ex)
 			{
-				//Add your exception code here.
+				Console.WriteLine(ex.ToString());
 			}
 			sqlite.Close();
 			return dt;
