@@ -93,7 +93,7 @@ namespace adhdb.bot
 			foreach (DataRow row in commands.Rows)
 			{
 				returnString += "**";
-				if (row["CommandType"].ToString() != "1")
+				if (row["CommandRegex"].ToString() == "")
 				{
 					returnString += DiscordChar;
 				}
