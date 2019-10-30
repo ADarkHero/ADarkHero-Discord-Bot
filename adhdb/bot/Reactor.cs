@@ -47,16 +47,18 @@ namespace adhdb.bot
 				await usermsg.AddReactionAsync(new Emoji("😏"));
 			}
 
+			if (content.Contains("20"))
+			{
+				//Facepalm emoji
+				await usermsg.AddReactionAsync(new Emoji("\U0001F926"));
+			}
+
 			if (content.Equals("1") || content.Contains("**1**"))
 			{
 				await usermsg.AddReactionAsync(new Emoji("👍"));
 			}
 
-			if (content.Equals("20") || content.Contains("**20**"))
-			{
-				//Facepalm emoji
-				await usermsg.AddReactionAsync(new Emoji("\U0001F926"));
-			}
+
 		}
 
 

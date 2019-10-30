@@ -61,7 +61,7 @@ namespace adhdb
 				command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower();
 
 				//Read functions from database
-				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null";
+				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null COLLATE NOCASE";
 				DataTable sqlResult = sqlh.selectSQL(sql);
 
 				foreach (DataRow row in sqlResult.Rows)
