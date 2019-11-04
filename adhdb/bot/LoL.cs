@@ -99,7 +99,7 @@ namespace adhdb.bot
 			build += "**" + buildHelper[i, 0] + "**\r\n🔹 ";
 
 			//Time to get some items
-			String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0]) + 1);
+			String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0] + "\r\n") + 1);
 
 			HtmlDocument doc = new HtmlDocument();
 			doc.LoadHtml(@htmlCodeTemp);
