@@ -17,13 +17,27 @@ namespace adhdb.bot
 
 		public Reactor(SocketMessage msg)
 		{
-			var usermsg = msg as IUserMessage;
-			ReactorAsync(usermsg);
+			try
+			{
+				var usermsg = msg as IUserMessage;
+				ReactorAsync(usermsg);
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 		public Reactor(IUserMessage msg)
 		{
-			ReactorAsync(msg);
+			try
+			{
+				ReactorAsync(msg);
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -33,35 +47,49 @@ namespace adhdb.bot
 		/// <returns>Task.</returns>
 		public async Task ReactorAsync(IUserMessage usermsg)
 		{
-
-			String content = usermsg.Content.ToLower();
-
-			Console.WriteLine(content);
-
-			if (content.Contains("69") ||
-				content.Contains("lewd") ||
-				content.Contains("nude") ||
-				content.Contains("penis") ||
-				content.Contains("sex"))
+			try
 			{
-				await usermsg.AddReactionAsync(new Emoji("😏"));
-			}
+				String content = usermsg.Content.ToLower();
 
-			if (content.Contains("20"))
+				Console.WriteLine(content);
+
+				if (content.Contains("69") ||
+					content.Contains("lewd") ||
+					content.Contains("nude") ||
+					content.Contains("penis") ||
+					content.Contains("sex"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("😏"));
+				}
+
+				if (content.Contains("20") && (!content.Contains("w20") || !content.Contains("d20")))
+				{
+					//Facepalm emoji
+					await usermsg.AddReactionAsync(new Emoji("\U0001F926"));
+				}
+
+				if (content.Equals("1") || content.Contains("**1**") || content.Contains(" 1 "))
+				{
+					await usermsg.AddReactionAsync(new Emoji("👍"));
+				}
+
+				if (content.Contains("lul"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🦀"));
+				}
+			}
+			catch (Exception ex)
 			{
-				//Facepalm emoji
-				await usermsg.AddReactionAsync(new Emoji("\U0001F926"));
+				Logger logger = new Logger(ex.ToString());
 			}
-
-			if (content.Equals("1") || content.Contains("**1**"))
-			{
-				await usermsg.AddReactionAsync(new Emoji("👍"));
-			}
-
-
 		}
 
-
+		/// <summary>
+		/// Adds a new reaction.
+		/// </summary>
+		/// <param name="message">Message that should be reacted to.</param>
+		/// <param name="emo">Emoji that should be added.</param>
+		/// <returns></returns>
 		public async Task AddNewReaction(IUserMessage message, Emoji emo)
 		{
 			await message.AddReactionAsync(emo);

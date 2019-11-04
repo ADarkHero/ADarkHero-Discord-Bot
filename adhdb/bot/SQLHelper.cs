@@ -23,15 +23,29 @@ namespace adhdb.bot
 
 		public SQLHelper()
 		{
-			DiscordToken = File.ReadAllText("token.txt");
-			readSettings();
+			try
+			{
+				DiscordToken = File.ReadAllText("token.txt");
+				readSettings();
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 		public SQLHelper(SocketMessage message, string command, DataRow drow)
 		{
-			Msg = message;
-			Com = command;
-			Row = drow;
-			readSettings();
+			try
+			{
+				Msg = message;
+				Com = command;
+				Row = drow;
+				readSettings();
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 
@@ -40,15 +54,21 @@ namespace adhdb.bot
 		/// </summary>
 		private void readSettings()
 		{
-			DataTable botSettings = this.SelectSQL("SELECT * FROM settings");
-			foreach (DataRow row in botSettings.Rows)
+			try
 			{
-				if (row["SettingsName"].ToString() == "DiscordChar")
+				DataTable botSettings = this.SelectSQL("SELECT * FROM settings");
+				foreach (DataRow row in botSettings.Rows)
 				{
-					DiscordChar = row["SettingsValue"].ToString();
+					if (row["SettingsName"].ToString() == "DiscordChar")
+					{
+						DiscordChar = row["SettingsValue"].ToString();
+					}
 				}
 			}
-
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -58,14 +78,14 @@ namespace adhdb.bot
 		/// <param name="commandText"></param>
 		public String InsertNewCommand(string commandName, string commandText)
 		{
-			SQLiteCommand insertSQL = new SQLiteCommand(
-				"INSERT INTO commands (CommandName, CommandComment, CommandType, CommandRegex, CommandObject, CommandFunction, CommandAlias, CommandRights) " +
-				"VALUES (@param1,@param2,99,null,null,null,null,null)", sqlite);
-			insertSQL.Parameters.Add(new SQLiteParameter("@param1", commandName));
-			insertSQL.Parameters.Add(new SQLiteParameter("@param2", commandText));
-
 			try
 			{
+				SQLiteCommand insertSQL = new SQLiteCommand(
+				"INSERT INTO commands (CommandName, CommandComment, CommandType, CommandRegex, CommandObject, CommandFunction, CommandAlias, CommandRights) " +
+				"VALUES (@param1,@param2,99,null,null,null,null,null)", sqlite);
+				insertSQL.Parameters.Add(new SQLiteParameter("@param1", commandName));
+				insertSQL.Parameters.Add(new SQLiteParameter("@param2", commandText));
+
 				sqlite.Open();  //Initiate connection to the db
 
 				insertSQL.ExecuteNonQuery();
@@ -73,6 +93,7 @@ namespace adhdb.bot
 			}
 			catch (Exception ex)
 			{
+				Logger logger = new Logger(ex.ToString());
 				return "Fehler beim Anlegen des commands.\r\n\r\n" + ex.Message;
 			}
 
@@ -87,20 +108,28 @@ namespace adhdb.bot
 		/// <returns></returns>
 		public String ListAllFunctions()
 		{
-			String returnString = "";
-
-			DataTable commands = SelectSQL("SELECT * FROM commands WHERE CommandAlias is null ORDER BY CommandName");
-			foreach (DataRow row in commands.Rows)
+			try
 			{
-				returnString += "**";
-				if (row["CommandRegex"].ToString() == "")
-				{
-					returnString += DiscordChar;
-				}
-				returnString += row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
-			}
+				String returnString = "";
 
-			return returnString;
+				DataTable commands = SelectSQL("SELECT * FROM commands WHERE CommandAlias is null ORDER BY CommandName");
+				foreach (DataRow row in commands.Rows)
+				{
+					returnString += "**";
+					if (row["CommandRegex"].ToString() == "")
+					{
+						returnString += DiscordChar;
+					}
+					returnString += row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
+				}
+
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
+			}
 		}
 
 
@@ -110,16 +139,24 @@ namespace adhdb.bot
 		/// <returns></returns>
 		public String ListAllDSAFunctions()
 		{
-			String returnString = "";
-
-			DataTable commands = SelectSQL("SELECT * FROM dsa WHERE DSAAlias is null ORDER BY DSATalentName");
-			foreach (DataRow row in commands.Rows)
+			try
 			{
-				returnString += "**" + row["DSATalentName"].ToString() + "** " +
-					"(" + row["DSATrait1"].ToString() + ", " + row["DSATrait2"].ToString() + ", " + row["DSATrait3"].ToString() + "), ";
-			}
+				String returnString = "";
 
-			return returnString;
+				DataTable commands = SelectSQL("SELECT * FROM dsa WHERE DSAAlias is null ORDER BY DSATalentName");
+				foreach (DataRow row in commands.Rows)
+				{
+					returnString += "**" + row["DSATalentName"].ToString() + "** " +
+						"(" + row["DSATrait1"].ToString() + ", " + row["DSATrait2"].ToString() + ", " + row["DSATrait3"].ToString() + "), ";
+				}
+
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
+			}
 		}
 
 		/// <summary>
@@ -129,24 +166,27 @@ namespace adhdb.bot
 		/// <returns>Datatable with the queries content.</returns>
 		public DataTable SelectSQL(string query)
 		{
-			SQLiteDataAdapter ad;
-			DataTable dt = new DataTable();
-
 			try
 			{
+				SQLiteDataAdapter ad;
+				DataTable dt = new DataTable();
+
 				SQLiteCommand cmd;
 				sqlite.Open();  //Initiate connection to the db
 				cmd = sqlite.CreateCommand();
 				cmd.CommandText = query;  //set the passed query
 				ad = new SQLiteDataAdapter(cmd);
 				ad.Fill(dt); //fill the datasource
+
+				sqlite.Close();
+				return dt;
 			}
 			catch (SQLiteException ex)
 			{
-				Console.WriteLine(ex.ToString());
+				Logger logger = new Logger(ex.ToString());
+				return null;
 			}
-			sqlite.Close();
-			return dt;
+
 		}
 	}
 }

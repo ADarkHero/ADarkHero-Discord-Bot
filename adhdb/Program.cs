@@ -10,6 +10,7 @@ using adhdb.bot;
 using System.Data;
 using System.Reflection;
 using System.IO;
+using Discord.Commands;
 
 namespace adhdb
 {
@@ -26,23 +27,31 @@ namespace adhdb
 
 		public async Task MainAsync()
 		{
-			//Code to show form
-			/*
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-				MyForm = new Form1();
-				Application.Run(MyForm);
-			*/
+			try
+			{
+				//Code to show form
+				/*
+					Application.EnableVisualStyles();
+					Application.SetCompatibleTextRenderingDefault(false);
+					MyForm = new Form1();
+					Application.Run(MyForm);
+				*/
 
-			//Starts the discord bot
-			_client = new DiscordSocketClient();
-			_client.MessageReceived += MessageReceivedAsync;
-			_client.ReactionAdded += ReactionReceivedAsync;
-			await _client.LoginAsync(TokenType.Bot, sqlh.DiscordToken);
-			await _client.StartAsync();
+				//Starts the discord bot
+				_client = new DiscordSocketClient();
+				_client.MessageReceived += MessageReceivedAsync;
+				_client.ReactionAdded += ReactionReceivedAsync;
+				_client.Log += LogAsync;
+				await _client.LoginAsync(TokenType.Bot, sqlh.DiscordToken);
+				await _client.StartAsync();
 
-			// Block this task until the program is closed.
-			await Task.Delay(-1);
+				// Block this task until the program is closed.
+				await Task.Delay(-1);
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -52,72 +61,91 @@ namespace adhdb
 		/// <returns>Completed Task.</returns>
 		private async Task MessageReceivedAsync(SocketMessage msg)
 		{
-			//Checks for commands
-			String command = "";
-
-			if (msg.Content.StartsWith(sqlh.DiscordChar))
+			try
 			{
+				//Checks for commands
+				String command = "";
 
-				command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower(); //Cuts discord char and makes the string lowercase
-				if (command.Contains(" "))
+				if (msg.Content.StartsWith(sqlh.DiscordChar))
 				{
-					command = command.Substring(0, command.IndexOf(" ")); //Cuts everything after first space
-				}
 
-				//Read functions from database
-				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null COLLATE NOCASE";
-				DataTable sqlResult = sqlh.SelectSQL(sql);
-
-				foreach (DataRow row in sqlResult.Rows)
-				{
-					/*
-					 * Command types
-					 * 0: Simple
-					 * 99: User generated
-					 * 100: Regex
-					 * 101: Complex
-					 */
-					//Simple functions
-					int commandType = Convert.ToInt16(row["CommandType"].ToString());
-					if (row["CommandName"].ToString() == command && commandType < 100)
+					command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower(); //Cuts discord char and makes the string lowercase
+					if (command.Contains(" "))
 					{
-						await msg.Channel.SendMessageAsync(row["CommandComment"].ToString());
+						command = command.Substring(0, command.IndexOf(" ")); //Cuts everything after first space
 					}
-					//Regex and more complex functions
-					else if (commandType >= 100 && (Regex.Match(command, row["CommandRegex"].ToString()).Success || row["CommandName"].ToString() == command))
+
+					//Read functions from database
+					String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null COLLATE NOCASE";
+					DataTable sqlResult = sqlh.SelectSQL(sql);
+
+					Boolean commandFound = false;
+					foreach (DataRow row in sqlResult.Rows)
 					{
-						String sendMessage = ExecuteFunctionByString(msg, command, row);
-						//Discord doesn't like too long messages. Split it, if its too long.
-						if (sendMessage.Length > 2000)
+						/*
+						 * Command types
+						 * 0: Simple
+						 * 99: User generated
+						 * 100: Regex
+						 * 101: Complex
+						 */
+						//Simple functions
+						int commandType = Convert.ToInt16(row["CommandType"].ToString());
+						if (row["CommandName"].ToString() == command && commandType < 100)
 						{
-							while (sendMessage.Length > 2000)
-							{
-								await msg.Channel.SendMessageAsync(sendMessage.Substring(0, 1999)); //Post 2000 chars
-								sendMessage = sendMessage.Substring(1999); //Cut first 2000 chars
-							}
+							await msg.Channel.SendMessageAsync(row["CommandComment"].ToString());
+							commandFound = true;
 						}
-						await msg.Channel.SendMessageAsync(sendMessage);
+						//Regex and more complex functions
+						else if (commandType >= 100 && (Regex.Match(command, row["CommandRegex"].ToString()).Success || row["CommandName"].ToString() == command))
+						{
+							String sendMessage = ExecuteFunctionByString(msg, command, row);
+							//Discord doesn't like too long messages. Split it, if its too long.
+							if (sendMessage.Length > 2000)
+							{
+								while (sendMessage.Length > 2000)
+								{
+									await msg.Channel.SendMessageAsync(sendMessage.Substring(0, 1999)); //Post 2000 chars
+									sendMessage = sendMessage.Substring(1999); //Cut first 2000 chars
+								}
+							}
+							await msg.Channel.SendMessageAsync(sendMessage);
+							commandFound = true;
+						}
+					}
+
+					if (!commandFound)
+					{
+						await msg.Channel.SendMessageAsync("Das command wurde nicht gefunden. Wurde sich hier eventuell vertippt?");
 					}
 				}
+				//Adds reactions to stuff
+				Reactor re = new Reactor(msg);
 			}
-			//Adds reactions to stuff
-			Reactor re = new Reactor(msg);
-
-			//Log message
-			Console.WriteLine(msg.ToString());
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 		private async Task ReactionReceivedAsync(Cacheable<IUserMessage, ulong> cachedMessage,
 			ISocketMessageChannel originChannel, SocketReaction reaction)
 		{
-			var message = await cachedMessage.GetOrDownloadAsync();
-
-			//Hash Code for ❤ because other methods don't seem to work?
-			//If someone reacts with a heart, the bot reacts with a heart too. Love for everyone! <3
-			if (reaction.Emote.GetHashCode() == -842361668)
+			try
 			{
-				Reactor re = new Reactor();
-				await re.AddNewReaction(message, new Emoji("❤"));
+				var message = await cachedMessage.GetOrDownloadAsync();
+
+				//Hash Code for ❤ because other methods don't seem to work?
+				//If someone reacts with a heart, the bot reacts with a heart too. Love for everyone! <3
+				if (reaction.Emote.GetHashCode() == -842361668)
+				{
+					Reactor re = new Reactor();
+					await re.AddNewReaction(message, new Emoji("❤"));
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
 			}
 		}
 
@@ -147,6 +175,33 @@ namespace adhdb
 			catch (Exception ex)
 			{
 				return ex.ToString();
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="message"></param>
+		/// <returns></returns>
+		private Task LogAsync(LogMessage message)
+		{
+			try
+			{
+				if (message.Exception is CommandException cmdException)
+				{
+					Logger logger = new Logger($"[Command/{message.Severity}] {cmdException.Command.Aliases.First()}"
+						+ $" failed to execute in {cmdException.Context.Channel}.");
+					logger.LogTextToFile(cmdException.ToString());
+				}
+				else
+					Console.WriteLine($"[General/{message.Severity}] {message}");
+
+				return Task.CompletedTask;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return null;
 			}
 		}
 	}

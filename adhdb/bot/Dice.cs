@@ -21,9 +21,16 @@ namespace adhdb.bot
 
 		public Dice(SocketMessage message, string command, DataRow drow)
 		{
-			Msg = message;
-			Com = command;
-			Row = drow;
+			try
+			{
+				Msg = message;
+				Com = command;
+				Row = drow;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -33,9 +40,17 @@ namespace adhdb.bot
 		/// <returns>The number, that got rolled.</returns>
 		private int Roll(int roll)
 		{
-			int diceRoll = rand.Next(1, roll + 1);
+			try
+			{
+				int diceRoll = rand.Next(1, roll + 1);
 
-			return diceRoll;
+				return diceRoll;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return 0;
+			}
 		}
 
 		/// <summary>
@@ -51,6 +66,7 @@ namespace adhdb.bot
 			}
 			catch (Exception ex)
 			{
+				Logger logger = new Logger(ex.ToString());
 				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. w20, w6, d20, d6 etc.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -79,17 +95,17 @@ namespace adhdb.bot
 				int roll = 0;
 				double sum = 0;
 				//Write the rolls to a string and calculate a sum of all rolls.
-				String returnStr = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **";
+				String returnStr = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: ";
 				for (int i = 0; i < numberOfDice; i++)
 				{
 					roll = Roll(diceRoll);
-					returnStr += roll + ", ";
+					returnStr += "**" + roll + "**, ";
 					sum += roll;
 				}
 
 				//Remove last , and add a ! instead!
 				returnStr = returnStr.Remove(returnStr.Length - 2);
-				returnStr += "**! ";
+				returnStr += "! ";
 
 				try
 				{
@@ -109,6 +125,7 @@ namespace adhdb.bot
 			}
 			catch (Exception ex)
 			{
+				Logger logger = new Logger(ex.ToString());
 				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. 1w20, 2w6, 3d20, 4d6 etc.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -119,35 +136,66 @@ namespace adhdb.bot
 		/// <returns></returns>
 		public String RollDSA()
 		{
-			String[] stringPairs = Msg.Content.Split(' ');
-			String returnString = "";
-			if (stringPairs.Length > 1)
+			try
 			{
-				String talent = stringPairs[1];
-				String sql = "SELECT * FROM dsa WHERE DSATalentName LIKE '" + talent + "' COLLATE NOCASE";
-				DataTable dt = sqlh.SelectSQL(sql);
+				String[] stringPairs = Msg.Content.Split(' ');
+				String returnString = "";
+				if (stringPairs.Length > 1)
+				{
+					String talent = stringPairs[1];
+					String sql = "SELECT * FROM dsa WHERE DSATalentName LIKE '" + talent + "' COLLATE NOCASE";
+					DataTable dt = sqlh.SelectSQL(sql);
 
-				//Search for the right talent
-				foreach (DataRow row in dt.Rows)
-				{
-					returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
-				"**" + row["DSATrait1"].ToString() + ": " + Roll(20).ToString() + "** | " +
-				"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
-				"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**";
+					//Search for the right talent
+					foreach (DataRow row in dt.Rows)
+					{
+						returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
+					"**" + row["DSATrait1"].ToString() + ": " + Roll(20).ToString() + "** | " +
+					"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
+					"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**";
+					}
+					if (String.IsNullOrEmpty(returnString))
+					{
+						return "Das Talent existiert nicht. Wurde sich eventuell vertippt?";
+					}
+					return returnString;
 				}
-				if (String.IsNullOrEmpty(returnString))
+				else
 				{
-					return "Das Talent existiert nicht. Wurde sich eventuell vertippt?";
+					returnString = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **" +
+						Roll(20).ToString() + " " + Roll(20).ToString() + " " + Roll(20).ToString() + "**!";
 				}
+
 				return returnString;
 			}
-			else
+			catch (Exception ex)
 			{
-				returnString = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **" +
-					Roll(20).ToString() + " " + Roll(20).ToString() + " " + Roll(20).ToString() + "**!";
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
 			}
 
-			return returnString;
+		}
+
+		public String Crit()
+		{
+			try
+			{
+				String[] stringPairs = Msg.Content.Split(' ');
+				if (stringPairs.Length > 1)
+				{
+					double crit = Convert.ToDouble(stringPairs[1]) * 1.5;
+					return "Kritischer Treffer! **" + crit.ToString() + "** Schaden!";
+				}
+				else
+				{
+					return "Kritischer Fehlschlag! Es wurde vergessen, eine Zahl einzugeben, die berechnet werden soll!";
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+			}
 		}
 
 
@@ -158,12 +206,20 @@ namespace adhdb.bot
 		/// <returns>String, that should be displayed.</returns>
 		public String CoinFlipStr()
 		{
-			Boolean cf = CoinFlip();
-			if (cf)
+			try
 			{
-				return "yes.";
+				Boolean cf = CoinFlip();
+				if (cf)
+				{
+					return "yes.";
+				}
+				return "no";
 			}
-			return "no";
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "maybe?";
+			}
 		}
 
 		/// <summary>
@@ -172,11 +228,19 @@ namespace adhdb.bot
 		/// <returns>True/False</returns>
 		private Boolean CoinFlip()
 		{
-			if (rand.Next(0, 2) == 1)
+			try
 			{
-				return true;
+				if (rand.Next(0, 2) == 1)
+				{
+					return true;
+				}
+				return false;
 			}
-			return false;
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return false;
+			}
 		}
 
 
@@ -186,10 +250,10 @@ namespace adhdb.bot
 		/// <returns>A string that contains the result of the math.</returns>
 		public String DoSimpleMathStr()
 		{
-			var match = Regex.Match(Com, @Row["CommandRegex"].ToString());
-
 			try
 			{
+				var match = Regex.Match(Com, @Row["CommandRegex"].ToString());
+
 				String mathOperator = match.Groups[2].Value;
 				double x = Convert.ToDouble(match.Groups[1].Value);
 				double y = Convert.ToDouble(match.Groups[3].Value);
@@ -199,6 +263,7 @@ namespace adhdb.bot
 			}
 			catch (Exception ex)
 			{
+				Logger logger = new Logger(ex.ToString());
 				return "Ungültige Eingabe.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -212,18 +277,26 @@ namespace adhdb.bot
 		/// <returns>Result of the mathematical operation.</returns>
 		private double MathOperation(string op, double x, double y)
 		{
-			switch (op)
+			try
 			{
-				case "+":
-					return x + y;
-				case "-":
-					return x - y;
-				case "*":
-					return x * y;
-				case "/":
-					return x / y;
-				default:
-					return x;
+				switch (op)
+				{
+					case "+":
+						return x + y;
+					case "-":
+						return x - y;
+					case "*":
+						return x * y;
+					case "/":
+						return x / y;
+					default:
+						return x;
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return x;
 			}
 		}
 	}

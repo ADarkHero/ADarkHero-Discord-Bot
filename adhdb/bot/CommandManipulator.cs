@@ -21,39 +21,59 @@ namespace adhdb.bot
 		}
 		public CommandManipulator(SocketMessage message, string command, DataRow drow)
 		{
-			Msg = message;
-			Com = command;
-			Row = drow;
+			try
+			{
+				Msg = message;
+				Com = command;
+				Row = drow;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
 		}
 
+		/// <summary>
+		/// Adds a new command.
+		/// </summary>
+		/// <returns>String that shows the user, that the command was added.</returns>
 		public String AddNewCommand()
 		{
-			var user = Msg.Author as SocketGuildUser;
-			var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
-
-			if (user.GuildPermissions.Administrator)
+			try
 			{
-				String[] stringPairs = Msg.Content.Split(' ');
+				var user = Msg.Author as SocketGuildUser;
+				var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
 
-				//Only trigger if the user inputs 3 stringpairs (!addCommand ping Pong)
-				if (stringPairs.Length > 2)
+				if (user.GuildPermissions.Administrator)
 				{
-					//Reconnects the string that we split earlier. Leaves out the first two pairs of course.
-					String commandText = "";
-					for (int i = 2; i < stringPairs.Length; i++)
-					{
-						commandText += stringPairs[i] + " ";
-					}
-					//Insert command into db
-					SQLHelper sqlh = new SQLHelper();
+					String[] stringPairs = Msg.Content.Split(' ');
 
-					return sqlh.InsertNewCommand(stringPairs[1], commandText);
+					//Only trigger if the user inputs 3 stringpairs (!addCommand ping Pong)
+					if (stringPairs.Length > 2)
+					{
+						//Reconnects the string that we split earlier. Leaves out the first two pairs of course.
+						String commandText = "";
+						for (int i = 2; i < stringPairs.Length; i++)
+						{
+							commandText += stringPairs[i] + " ";
+						}
+						//Insert command into db
+						SQLHelper sqlh = new SQLHelper();
+
+						return sqlh.InsertNewCommand(stringPairs[1], commandText);
+					}
+
+					return "Bitte gib alle notwendigen Argumente ein. z.B.: !addcommand ping Pong Pong Pong.";
 				}
 
-				return "Bitte gib alle notwendigen Argumente ein. z.B.: !addcommand ping Pong Pong Pong.";
+				return "Dieser Befehl steht nur Administratoren zur Verfügung.";
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
 			}
 
-			return "Dieser Befehl steht nur Administratoren zur Verfügung.";
 		}
 	}
 }
