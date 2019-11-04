@@ -95,81 +95,90 @@ namespace adhdb.bot
 		/// <returns>The string that should be written by the bot.</returns>
 		private static string CreateBuild(string htmlCode, string build, string[,] buildHelper, int i)
 		{
-			//Creates build-headline (Starting Items, Boots, Core items...)
-			build += "**" + buildHelper[i, 0] + "**\r\n🔹 ";
-
-			//Time to get some items
-			String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0] + "\r\n") + 1);
-
-			HtmlDocument doc = new HtmlDocument();
-			doc.LoadHtml(@htmlCodeTemp);
-
-			//Search for img tags - The items names are in the imgs alt tags
-			var img = doc.DocumentNode.Descendants("img");
-
-			int j = 1;
-			foreach (var node in img)
+			try
 			{
-				//Gets alt attributes.
-				if (buildHelper[i, 0] == "Core Items" && j % 4 == 1)
-				{
-					build += "*";
-				}
-				build += node.GetAttributeValue("alt", string.Empty);
+				//Creates build-headline (Starting Items, Boots, Core items...)
+				build += "**" + buildHelper[i, 0] + "**\r\n🔹 ";
 
-				//After how many items should a linebreak be inserted?
-				int rest = 0;
-				switch (buildHelper[i, 0])
-				{
-					case "Starting Items":
-						rest = j % 3;
-						break;
-					case "Boots":
-						rest = j % 1;
-						break;
-					case "Core Items":
-						rest = j % 4;
-						break;
-					case "End items":
-						rest = j % 10;
-						break;
-					default:
-						rest = j % 4;
-						break;
-				}
+				//Time to get some items
+				String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0] + "\r\n") + 1);
 
-				if (buildHelper[i, 0] == "Core Items" && j % 4 == 1)
-				{
-					build += "*";
-				}
+				HtmlDocument doc = new HtmlDocument();
+				doc.LoadHtml(@htmlCodeTemp);
 
+				//Search for img tags - The items names are in the imgs alt tags
+				var img = doc.DocumentNode.Descendants("img");
 
-				j++;
-				//If j is greater than the second number in the array, break to the next itembuilds
-				if (j > Convert.ToUInt16(buildHelper[i, 1]))
+				int j = 1;
+				foreach (var node in img)
 				{
-					build += "\r\n\r\n"; break;
-				}
-				//No rest: Start a new line
-				else if (rest == 0)
-				{
-					build += "\r\n🔹 ";
-				}
-				//Add an arrow; no additional formatting needed.
-				else
-				{
-					if (buildHelper[i, 0] == "End items")
+					//Gets alt attributes.
+					if (buildHelper[i, 0] == "Core Items" && j % 4 == 1)
 					{
-						build += " | ";
+						build += "*";
 					}
+					build += node.GetAttributeValue("alt", string.Empty);
+
+					//After how many items should a linebreak be inserted?
+					int rest = 0;
+					switch (buildHelper[i, 0])
+					{
+						case "Starting Items":
+							rest = j % 3;
+							break;
+						case "Boots":
+							rest = j % 1;
+							break;
+						case "Core Items":
+							rest = j % 4;
+							break;
+						case "End items":
+							rest = j % 10;
+							break;
+						default:
+							rest = j % 4;
+							break;
+					}
+
+					if (buildHelper[i, 0] == "Core Items" && j % 4 == 1)
+					{
+						build += "*";
+					}
+
+
+					j++;
+					//If j is greater than the second number in the array, break to the next itembuilds
+					if (j > Convert.ToUInt16(buildHelper[i, 1]))
+					{
+						build += "\r\n\r\n"; break;
+					}
+					//No rest: Start a new line
+					else if (rest == 0)
+					{
+						build += "\r\n🔹 ";
+					}
+					//Add an arrow; no additional formatting needed.
 					else
 					{
-						build += " => ";
+						if (buildHelper[i, 0] == "End items")
+						{
+							build += " | ";
+						}
+						else
+						{
+							build += " => ";
+						}
 					}
 				}
+
+				return build;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return build;
 			}
 
-			return build;
 		}
 	}
 }

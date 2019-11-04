@@ -61,8 +61,28 @@ namespace adhdb.bot
 		{
 			try
 			{
-				int diceRoll = Convert.ToInt16(Regex.Replace(Com, "[^0-9]", ""));
-				return "<@" + Msg.Author.Id + "> hat eine **" + Roll(diceRoll) + "** gewürfelt!";
+				var match = Regex.Match(Com, @Row["CommandRegex"].ToString());
+				int diceRoll = Convert.ToInt16(match.Groups[2].Value);
+				int roll = Roll(diceRoll);
+				String returnStr = "<@" + Msg.Author.Id + "> hat eine **" + roll + "** gewürfelt!";
+
+				try
+				{
+					//If there are manipulators, apply them at the end.
+					String manipulator = match.Groups[3].Value;
+					double manipulatorValue = Convert.ToDouble(match.Groups[4].Value.Replace(".", ","));
+
+					double sum = MathOperation(manipulator, roll, manipulatorValue);
+
+					returnStr += " Das Ergebnis wurde um **" + manipulator + manipulatorValue.ToString() + "** abgeändert. ";
+					returnStr += "\r\nDas Gesamtergebnis beträgt **" + sum.ToString() + "**!";
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.ToString());
+				}
+
+				return returnStr;
 			}
 			catch (Exception ex)
 			{
@@ -131,9 +151,9 @@ namespace adhdb.bot
 		}
 
 		/// <summary>
-		/// 
+		/// Rolls three d20 for dsa talents.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>String for the bot.</returns>
 		public String RollDSA()
 		{
 			try
@@ -176,6 +196,10 @@ namespace adhdb.bot
 
 		}
 
+		/// <summary>
+		/// Multiplies a number by 1.5
+		/// </summary>
+		/// <returns>String with the bot message.</returns>
 		public String Crit()
 		{
 			try
