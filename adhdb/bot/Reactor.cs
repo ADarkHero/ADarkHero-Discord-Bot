@@ -57,25 +57,87 @@ namespace adhdb.bot
 					content.Contains("lewd") ||
 					content.Contains("nude") ||
 					content.Contains("penis") ||
-					content.Contains("sex"))
+					content.Contains("sex") ||
+					content.Contains("friends"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("😏"));
 				}
 
-				if (content.Contains("20") && (!content.Contains("w20") || !content.Contains("d20")))
+				if (content.Contains("20") && (!content.Contains("w20") && !content.Contains("d20")))
 				{
 					//Facepalm emoji
 					await usermsg.AddReactionAsync(new Emoji("\U0001F926"));
 				}
 
-				if (content.Equals("1") || content.Contains("**1**") || content.Contains(" 1 "))
+				if (content.Equals("1") || content.Contains("**1**") || content.Contains(" 1**") || content.Contains(" 1 "))
 				{
 					await usermsg.AddReactionAsync(new Emoji("👍"));
+				}
+
+				if (content.Contains("13"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🖤"));
+				}
+
+				if (content.Contains("42"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🔥"));
+				}
+
+				if (content.Contains("420"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🍁"));
+				}
+
+				if (content.Contains("666"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("😈"));
+				}
+
+				if (content.Contains("kill me"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🛑"));
+				}
+
+				if (content.Contains("fuck me"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("😏"));
+					await usermsg.AddReactionAsync(new Emoji("👍"));
+				}
+
+				if (content.Contains("uwu") || content.Contains("owo"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐙"));
+				}
+
+				if (content.Contains("love") || content.Contains("liebe"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("❤"));
 				}
 
 				if (content.Contains("lul"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🦀"));
+				}
+
+				if (content.Contains("nicole"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("💕"));
+				}
+
+				if (content.Contains("marina"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("💖"));
+				}
+
+				if (content.Contains("jaden"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐈"));
+				}
+
+				if (content.Contains("coffee") || content.Contains("kaffee"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("☕"));
 				}
 			}
 			catch (Exception ex)
