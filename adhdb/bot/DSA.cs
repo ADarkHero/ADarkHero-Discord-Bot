@@ -114,34 +114,42 @@ namespace adhdb.bot
 		/// <returns></returns>
 		public String RandomLootStr()
 		{
-			DataRow dt = RandomLoot();
+			try
+			{
+				DataRow dt = RandomLoot();
 
-			String returnString = "";
+				String returnString = "";
 
-			returnString += "**" + dt["LootName"].ToString() + "**";
-			if (!String.IsNullOrEmpty(dt["LootFlavorText"].ToString()))
-			{
-				returnString += "\r\n\r\n" + "*\"" + dt["LootFlavorText"].ToString() + "\"*";
-			}
-			returnString += "\r\n\r\n" + "*(" + dt["RarityName"].ToString();
-			if (!String.IsNullOrEmpty(dt["LootType"].ToString()))
-			{
-				returnString += " " + dt["LootType"].ToString() + ")* ";
-			}
-			else
-			{
-				returnString += ")* ";
-			}
-			if (!String.IsNullOrEmpty(dt["LootDescription"].ToString()))
-			{
-				returnString += dt["LootDescription"].ToString();
-			}
-			if (!String.IsNullOrEmpty(dt["LootPicture"].ToString()))
-			{
-				returnString += "\r\n\r\n" + dt["LootPicture"].ToString();
-			}
+				returnString += "**" + dt["LootName"].ToString() + "**";
+				if (!String.IsNullOrEmpty(dt["LootFlavorText"].ToString()))
+				{
+					returnString += "\r\n\r\n" + "*\"" + dt["LootFlavorText"].ToString() + "\"*";
+				}
+				returnString += "\r\n\r\n" + "*(" + dt["RarityName"].ToString();
+				if (!String.IsNullOrEmpty(dt["LootType"].ToString()))
+				{
+					returnString += " " + dt["LootType"].ToString() + ")* ";
+				}
+				else
+				{
+					returnString += ")* ";
+				}
+				if (!String.IsNullOrEmpty(dt["LootDescription"].ToString()))
+				{
+					returnString += dt["LootDescription"].ToString();
+				}
+				if (!String.IsNullOrEmpty(dt["LootPicture"].ToString()))
+				{
+					returnString += "\r\n\r\n" + dt["LootPicture"].ToString();
+				}
 
-			return returnString;
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+			}
 		}
 
 		/// <summary>
@@ -150,24 +158,32 @@ namespace adhdb.bot
 		/// <returns></returns>
 		public String MultipleRandomLootStr()
 		{
-			String returnString = "";
-			String[] stringPairs = Msg.Content.Split(' ');
-			int lootNumber = 1;
-			if (stringPairs.Length > 1)
+			try
 			{
-				lootNumber = Convert.ToInt16(stringPairs[1].ToString());
-			}
-
-			for (int i = 0; i < lootNumber; i++)
-			{
-				returnString += RandomLootStr();
-				if (lootNumber > 1)
+				String returnString = "";
+				String[] stringPairs = Msg.Content.Split(' ');
+				int lootNumber = 1;
+				if (stringPairs.Length > 1)
 				{
-					returnString += "\r\n\r\n\r\n";
+					lootNumber = Convert.ToInt16(stringPairs[1].ToString());
 				}
-			}
 
-			return returnString;
+				for (int i = 0; i < lootNumber; i++)
+				{
+					returnString += RandomLootStr();
+					if (lootNumber > 1)
+					{
+						returnString += "\r\n\r\n\r\n";
+					}
+				}
+
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+			}
 		}
 
 		/// <summary>
@@ -176,30 +192,34 @@ namespace adhdb.bot
 		/// <returns></returns>
 		public DataRow RandomLoot()
 		{
-			String sql = "SELECT *, " +
-				"(select sum(RarityPercentage) from loot INNER JOIN rarity ON loot.LootRarity = rarity.RarityID)  as TotalRarity " +
-				"FROM loot INNER JOIN rarity ON loot.LootRarity = rarity.RarityID";
-			DataTable dt = sqlh.SelectSQL(sql);
-
-			Boolean first = true;
-			int totalRarity = 0; int currentRarity = 0;
-			foreach (DataRow row in dt.Rows)
+			try
 			{
-				//Implementing a rarity function. Common items should be returned more often, than rare ones.
-				if (first)
-				{
-					totalRarity = Convert.ToInt16(row["TotalRarity"].ToString());
-					currentRarity = rand.Next(1, totalRarity);
-					first = false;
-				}
+				int rarityCheck = rand.Next(1, 100);
 
-				currentRarity -= Convert.ToInt16(row["RarityPercentage"].ToString());
-				if (currentRarity <= 0)
+				String sql = "SELECT * from loot " +
+					"INNER JOIN rarity ON loot.LootRarity = rarity.RarityID " +
+					"WHERE RarityPercentageA <= " + rarityCheck + " AND RarityPercentageB >= " + rarityCheck + " ";
+
+				Console.WriteLine(sql);
+				DataTable dt = sqlh.SelectSQL(sql);
+
+				int lootSelect = rand.Next(1, dt.Rows.Count);
+				foreach (DataRow row in dt.Rows)
 				{
-					return row;
+					lootSelect--;
+					if (lootSelect == 0)
+					{
+						return row;
+					}
 				}
+				return null;
 			}
-			return null;
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return null;
+			}
+
 		}
 
 	}
