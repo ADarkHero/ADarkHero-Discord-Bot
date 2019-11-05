@@ -219,22 +219,41 @@ namespace adhdb.bot
 				return null;
 			}
 
-		}
 
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public String LootChances()
 		{
-			String sql = "SELECT * from rarity ";
-
-			DataTable dt = sqlh.SelectSQL(sql);
-
-			String returnString = "";
-			foreach (DataRow row in dt.Rows)
+			try
 			{
-				int rarity = Convert.ToInt16(row["RarityPercentageB"]) - Convert.ToInt16(row["RarityPercentageA"]) + 1;
-				returnString += row["RarityName"] + ": " + rarity.ToString() + "%\r\n";
-			}
+				String sql = "SELECT *, " +
+					"(SELECT count(LootRarity) FROM loot WHERE LootRarity = 0) AS Row0, " +
+					"(SELECT count(LootRarity) FROM loot WHERE LootRarity = 1) AS Row1, " +
+					"(SELECT count(LootRarity) FROM loot WHERE LootRarity = 2) AS Row2, " +
+					"(SELECT count(LootRarity) FROM loot WHERE LootRarity = 3) AS Row3 " +
+					"from rarity";
 
-			return returnString;
+				DataTable dt = sqlh.SelectSQL(sql);
+
+				String returnString = "";
+				int i = 0;
+				foreach (DataRow row in dt.Rows)
+				{
+					int rarity = Convert.ToInt16(row["RarityPercentageB"]) - Convert.ToInt16(row["RarityPercentageA"]) + 1;
+					returnString += "**" + row["RarityName"] + "**: " + rarity.ToString() + "% *(" + row["Row" + i.ToString()] + " Items)*\r\n";
+					i++;
+				}
+
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+			}
 		}
 
 	}
