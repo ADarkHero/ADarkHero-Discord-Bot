@@ -202,7 +202,7 @@ namespace adhdb.bot
 
 				DataTable dt = sqlh.SelectSQL(sql);
 
-				int lootSelect = rand.Next(1, dt.Rows.Count);
+				int lootSelect = rand.Next(1, dt.Rows.Count + 1);
 				foreach (DataRow row in dt.Rows)
 				{
 					lootSelect--;
