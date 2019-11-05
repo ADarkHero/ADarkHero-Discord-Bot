@@ -200,7 +200,6 @@ namespace adhdb.bot
 					"INNER JOIN rarity ON loot.LootRarity = rarity.RarityID " +
 					"WHERE RarityPercentageA <= " + rarityCheck + " AND RarityPercentageB >= " + rarityCheck + " ";
 
-				Console.WriteLine(sql);
 				DataTable dt = sqlh.SelectSQL(sql);
 
 				int lootSelect = rand.Next(1, dt.Rows.Count);
@@ -220,6 +219,22 @@ namespace adhdb.bot
 				return null;
 			}
 
+		}
+
+		public String LootChances()
+		{
+			String sql = "SELECT * from rarity ";
+
+			DataTable dt = sqlh.SelectSQL(sql);
+
+			String returnString = "";
+			foreach (DataRow row in dt.Rows)
+			{
+				int rarity = Convert.ToInt16(row["RarityPercentageB"]) - Convert.ToInt16(row["RarityPercentageA"]) + 1;
+				returnString += row["RarityName"] + ": " + rarity.ToString() + "%\r\n";
+			}
+
+			return returnString;
 		}
 
 	}
