@@ -51,8 +51,6 @@ namespace adhdb.bot
 			{
 				String content = usermsg.Content.ToLower();
 
-				Console.WriteLine(content);
-
 				if (content.Contains("69") ||
 					content.Contains("lewd") ||
 					content.Contains("nude") ||

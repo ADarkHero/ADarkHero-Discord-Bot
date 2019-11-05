@@ -19,6 +19,9 @@ namespace adhdb.bot
 		private DataRow Row = null;
 		Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
 
+		public Dice()
+		{
+		}
 		public Dice(SocketMessage message, string command, DataRow drow)
 		{
 			try
@@ -38,7 +41,7 @@ namespace adhdb.bot
 		/// </summary>
 		/// <param name="roll">What is the highest number on the dice?</param>
 		/// <returns>The number, that got rolled.</returns>
-		private int Roll(int roll)
+		public int Roll(int roll)
 		{
 			try
 			{
@@ -149,79 +152,6 @@ namespace adhdb.bot
 				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. 1w20, 2w6, 3d20, 4d6 etc.\r\n\r\n" + ex.ToString();
 			}
 		}
-
-		/// <summary>
-		/// Rolls three d20 for dsa talents.
-		/// </summary>
-		/// <returns>String for the bot.</returns>
-		public String RollDSA()
-		{
-			try
-			{
-				String[] stringPairs = Msg.Content.Split(' ');
-				String returnString = "";
-				if (stringPairs.Length > 1)
-				{
-					String talent = stringPairs[1];
-					String sql = "SELECT * FROM dsa WHERE DSATalentName LIKE '" + talent + "' COLLATE NOCASE";
-					DataTable dt = sqlh.SelectSQL(sql);
-
-					//Search for the right talent
-					foreach (DataRow row in dt.Rows)
-					{
-						returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
-					"**" + row["DSATrait1"].ToString() + ": " + Roll(20).ToString() + "** | " +
-					"**" + row["DSATrait2"].ToString() + ": " + Roll(20).ToString() + "** | " +
-					"**" + row["DSATrait3"].ToString() + ": " + Roll(20).ToString() + "**";
-					}
-					if (String.IsNullOrEmpty(returnString))
-					{
-						return "Das Talent existiert nicht. Wurde sich eventuell vertippt?";
-					}
-					return returnString;
-				}
-				else
-				{
-					returnString = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **" +
-						Roll(20).ToString() + " " + Roll(20).ToString() + " " + Roll(20).ToString() + "**!";
-				}
-
-				return returnString;
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
-			}
-
-		}
-
-		/// <summary>
-		/// Multiplies a number by 1.5
-		/// </summary>
-		/// <returns>String with the bot message.</returns>
-		public String Crit()
-		{
-			try
-			{
-				String[] stringPairs = Msg.Content.Split(' ');
-				if (stringPairs.Length > 1)
-				{
-					double crit = Convert.ToDouble(stringPairs[1]) * 1.5;
-					return "Kritischer Treffer! **" + crit.ToString() + "** Schaden!";
-				}
-				else
-				{
-					return "Kritischer Fehlschlag! Es wurde vergessen, eine Zahl einzugeben, die berechnet werden soll!";
-				}
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
-			}
-		}
-
 
 
 		/// <summary>
