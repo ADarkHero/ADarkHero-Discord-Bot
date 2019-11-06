@@ -50,7 +50,7 @@ namespace adhdb.bot
 					try
 					{
 						WebClient client = new WebClient();
-						client.Headers.Add("User-Agent", "C# console program");
+						client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36");
 
 						htmlCode = client.DownloadString(url);
 					}
@@ -102,6 +102,10 @@ namespace adhdb.bot
 
 				//Time to get some items
 				String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0] + "\r\n") + 1);
+				if (buildHelper[i, 0] == "End items")
+				{
+					htmlCodeTemp = htmlCodeTemp.Substring(0, htmlCodeTemp.IndexOf("Boots\r\n") + 1);
+				}
 
 				HtmlDocument doc = new HtmlDocument();
 				doc.LoadHtml(@htmlCodeTemp);
