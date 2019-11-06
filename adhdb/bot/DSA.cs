@@ -194,7 +194,7 @@ namespace adhdb.bot
 		{
 			try
 			{
-				int rarityCheck = rand.Next(1, 100);
+				int rarityCheck = rand.Next(1, 101);
 
 				String sql = "SELECT * from loot " +
 					"INNER JOIN rarity ON loot.LootRarity = rarity.RarityID " +

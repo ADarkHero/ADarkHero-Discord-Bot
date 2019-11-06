@@ -93,7 +93,7 @@ namespace adhdb
 						int commandType = Convert.ToInt16(row["CommandType"].ToString());
 						if (row["CommandName"].ToString() == command && commandType < 100)
 						{
-							await msg.Channel.SendMessageAsync(row["CommandComment"].ToString());
+							await msg.Channel.SendMessageAsync(">>> " + row["CommandComment"].ToString());
 							commandFound = true;
 						}
 						//Regex and more complex functions
@@ -105,18 +105,18 @@ namespace adhdb
 							{
 								while (sendMessage.Length > 2000)
 								{
-									await msg.Channel.SendMessageAsync(sendMessage.Substring(0, 1999)); //Post 2000 chars
-									sendMessage = sendMessage.Substring(1999); //Cut first 2000 chars
+									await msg.Channel.SendMessageAsync(">>> " + sendMessage.Substring(0, 1995)); //Post 2000 chars
+									sendMessage = sendMessage.Substring(1995); //Cut first 2000 chars
 								}
 							}
-							await msg.Channel.SendMessageAsync(sendMessage);
+							await msg.Channel.SendMessageAsync(">>> " + sendMessage);
 							commandFound = true;
 						}
 					}
 
 					if (!commandFound)
 					{
-						await msg.Channel.SendMessageAsync("Das command wurde nicht gefunden. Wurde sich hier eventuell vertippt?");
+						await msg.Channel.SendMessageAsync(">>> " + "Das command wurde nicht gefunden. Wurde sich hier eventuell vertippt?");
 					}
 				}
 				//Adds reactions to stuff
