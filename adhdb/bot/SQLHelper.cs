@@ -20,7 +20,7 @@ namespace adhdb.bot
 
 		public string DiscordChar { get; set; } //Character, that indicates the start of a discord command
 		public string DiscordToken { get; } //Token of the Discord Bot
-		public string YoutubeApi { get; set; } //API Key for YouTube
+		public string YoutubeApi { get; set; } //Api key for the YouTube Api
 
 		public SQLHelper()
 		{

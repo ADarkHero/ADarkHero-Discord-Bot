@@ -60,6 +60,8 @@ namespace adhdb.bot
 					String returnString = "";
 					using (WebClient wc = new WebClient())
 					{
+						wc.Encoding = Encoding.UTF8;
+
 						var jsonText = wc.DownloadString(url);
 						dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonText);
 

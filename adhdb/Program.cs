@@ -66,6 +66,8 @@ namespace adhdb
 				//Checks for commands
 				String command = "";
 
+				//Console.WriteLine(msg.Content.ToString());
+
 				if (msg.Content.StartsWith(sqlh.DiscordChar))
 				{
 
