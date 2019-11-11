@@ -137,6 +137,16 @@ namespace adhdb.bot
 				{
 					await usermsg.AddReactionAsync(new Emoji("☕"));
 				}
+
+				if (content.Contains("kappa"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐧"));
+				}
+
+				if (content.Contains("rip"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("☠"));
+				}
 			}
 			catch (Exception ex)
 			{

@@ -20,6 +20,7 @@ namespace adhdb.bot
 
 		public string DiscordChar { get; set; } //Character, that indicates the start of a discord command
 		public string DiscordToken { get; } //Token of the Discord Bot
+		public string YoutubeApi { get; set; } //API Key for YouTube
 
 		public SQLHelper()
 		{
@@ -62,6 +63,11 @@ namespace adhdb.bot
 					if (row["SettingsName"].ToString() == "DiscordChar")
 					{
 						DiscordChar = row["SettingsValue"].ToString();
+					}
+
+					if (row["SettingsName"].ToString() == "YoutubeApi")
+					{
+						YoutubeApi = row["SettingsValue"].ToString();
 					}
 				}
 			}

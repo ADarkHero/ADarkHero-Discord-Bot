@@ -142,6 +142,13 @@ namespace adhdb
 					Reactor re = new Reactor();
 					await re.AddNewReaction(message, new Emoji("❤"));
 				}
+
+				//Hash Code for 😏
+				if (reaction.Emote.GetHashCode() == -2083819629)
+				{
+					Reactor re = new Reactor();
+					await re.AddNewReaction(message, new Emoji("😏"));
+				}
 			}
 			catch (Exception ex)
 			{
