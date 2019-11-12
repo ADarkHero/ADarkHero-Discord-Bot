@@ -27,7 +27,18 @@ A Discord Bot made for self hosting and customization.
 * Other
   * Do simple math with two numbers (!2+4, !3\*8, !4/2 etc.)
   
-## Uses the following C# packages:
+## Uses the following C# packages
 * Discord.Net
 * HtmlAgilityPack
 * Newtonsoft.Json
+
+## Quick setup guide
+* Download the most recent [Release](https://github.com/ADarkHero/ADarkHero-Discord-Bot/releases)
+* Register at the [Discord Developer Portal](https://discordapp.com/developers)
+* Create a new application
+* Go to your applications settings, click on "Bot" and generate a new token
+* Create a token.txt file, that contains your generated token, in the applications base directory (the same directory, as the exe file)
+* Click on oauth in the Discord Developer Portal, look for the menu point "Scopes" and click on "Bot"
+* Set bot permissions (Send Messages, Read Messages, Add Reactions)
+* Open the generated oauth link and add the bot to your server (you'll need to be a server admin)
+* Start the adhdb.exe - It will run completely in the background. You'll only see it in the task manager.
