@@ -143,6 +143,8 @@ namespace adhdb.bot
 		/// 
 		/// </summary>
 		/// <returns></returns>
+		/// 
+		/// TODO: Probably move to DSA() => Don't forget to also change the function in the database
 		public String ListAllDSAFunctions()
 		{
 			try

@@ -13,7 +13,6 @@ namespace adhdb.bot
 {
 	public class Dice
 	{
-		private SQLHelper sqlh = new SQLHelper();
 		private SocketMessage Msg;
 		private String Com = "";
 		private DataRow Row = null;
@@ -77,7 +76,9 @@ namespace adhdb.bot
 
 					double sum = MathOperation(manipulator, roll, manipulatorValue);
 
+					//The result was changed by XX.
 					returnStr += " Das Ergebnis wurde um **" + manipulator + manipulatorValue.ToString() + "** abgeändert. ";
+					//The result is XX.
 					returnStr += "\r\nDas Gesamtergebnis beträgt **" + sum.ToString() + "**!";
 				}
 				catch (Exception ex)
@@ -90,7 +91,8 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. w20, w6, d20, d6 etc.\r\n\r\n" + ex.ToString();
+				//Please input a integer to throw a dice. For excample: !d20, !d6 etc.
+				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. !w20, !w6, !d20, !d6 etc.\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -118,6 +120,7 @@ namespace adhdb.bot
 				int roll = 0;
 				double sum = 0;
 				//Write the rolls to a string and calculate a sum of all rolls.
+				//@Author rolled the following: 
 				String returnStr = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: ";
 				for (int i = 0; i < numberOfDice; i++)
 				{
@@ -138,10 +141,12 @@ namespace adhdb.bot
 
 					sum = MathOperation(manipulator, sum, manipulatorValue);
 
+					//The result was manipulated by XX.
 					returnStr += "Das Ergebnis wurde um **" + manipulator + manipulatorValue.ToString() + "** abgeändert. ";
 				}
 				catch (Exception ex) { Console.WriteLine(ex.ToString()); }
 
+				//The result is XX.
 				returnStr += "\r\nDas Gesamtergebnis beträgt **" + sum.ToString() + "**!";
 
 				return returnStr;
@@ -149,7 +154,8 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. 1w20, 2w6, 3d20, 4d6 etc.\r\n\r\n" + ex.ToString();
+				//Please input a integer to throw a dice. For example !1d20, !2d6, !3d20, !4d6 etc.
+				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. !1w20, !2w6, !3d20, !4d6 etc.\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -172,6 +178,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//This should never happen. But if it does, at least it's funny!
 				return "maybe?";
 			}
 		}
@@ -213,11 +220,13 @@ namespace adhdb.bot
 				double y = Convert.ToDouble(match.Groups[3].Value);
 				double result = MathOperation(mathOperator, x, y);
 
+				//The result of XXXXXX is XX!
 				return "Das Ergebnis von **" + x.ToString() + mathOperator + y.ToString() + "** ist **" + result.ToString() + "**!";
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//The input was invalid.
 				return "Ungültige Eingabe.\r\n\r\n" + ex.ToString();
 			}
 		}

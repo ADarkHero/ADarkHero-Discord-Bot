@@ -76,6 +76,7 @@ namespace adhdb.bot
 					if (String.IsNullOrEmpty(returnString))
 					{
 						Logger logger = new Logger("Unbekannter Fehler. Bitte erneut versuchen?");
+						//Unknown error. Please try again?
 						return "Unbekannter Fehler. Bitte erneut versuchen?";
 					}
 
@@ -83,6 +84,7 @@ namespace adhdb.bot
 				}
 				else
 				{
+					//Please input a search result!
 					return "Bitte einen Suchbegriff eingeben!";
 				}
 

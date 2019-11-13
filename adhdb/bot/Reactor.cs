@@ -14,7 +14,6 @@ namespace adhdb.bot
 		{
 
 		}
-
 		public Reactor(SocketMessage msg)
 		{
 			try

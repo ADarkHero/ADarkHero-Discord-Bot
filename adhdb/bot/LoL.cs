@@ -56,10 +56,12 @@ namespace adhdb.bot
 					}
 					catch (Exception ex)
 					{
+						//The champion was not found! Please input the champions name without spaces or special characters! Casing is not relevant. For example !lol kogmaw
 						return "Der Champion wurde nicht gefunden! Bitte Championnamen ohne Leer- und Sonderzeichen eingeben! Groß-/Kleinschreibung ist egal. z.B. !lol kogmaw";
 					}
 
-					String build = "**League of Legends Build for " + stringPairs[1] + "**\r\n" + url + "\r\n\r\n";
+					//League of Legends build for XX
+					String build = "**League of Legends Build für " + stringPairs[1] + "**\r\n" + url + "\r\n\r\n";
 					String[,] buildHelper = new String[4, 2] {
 						{ "Starting Items", "6" },
 						{ "Boots", "1" },
@@ -75,12 +77,14 @@ namespace adhdb.bot
 				}
 				else
 				{
+					//Please input a champion name! For example !lol Ashe
 					return "Bitte Championnamen angeben! z.B. !lol Ashe";
 				}
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//Unknown error
 				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
 			}
 		}

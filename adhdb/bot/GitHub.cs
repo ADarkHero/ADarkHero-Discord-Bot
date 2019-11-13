@@ -46,7 +46,7 @@ namespace adhdb.bot
 				String returnString = "";
 				using (WebClient wc = new WebClient())
 				{
-					//GitHub wants a user Agent Header
+					//GitHub wants a user agent header
 					wc.Headers.Add("User-Agent", "C# Program");
 					var jsonText = wc.DownloadString(url);
 					dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonText);

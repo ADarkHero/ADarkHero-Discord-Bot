@@ -195,6 +195,7 @@
     <Compile Include="bot\LoL.cs" />
     <Compile Include="bot\Reactor.cs" />
     <Compile Include="bot\SQLHelper.cs" />
+    <Compile Include="bot\Wikipedia.cs" />
     <Compile Include="bot\Youtube.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

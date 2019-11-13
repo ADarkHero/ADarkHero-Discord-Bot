@@ -55,19 +55,22 @@ namespace adhdb.bot
 					//Search for the right talent
 					foreach (DataRow row in dt.Rows)
 					{
+						//@Auther rolls for the talent XX:
 						returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
-					"**" + row["DSATrait1"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
-					"**" + row["DSATrait2"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
-					"**" + row["DSATrait3"].ToString() + ": " + d.Roll(20).ToString() + "**";
+										"**" + row["DSATrait1"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
+										"**" + row["DSATrait2"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
+										"**" + row["DSATrait3"].ToString() + ": " + d.Roll(20).ToString() + "**";
 					}
 					if (String.IsNullOrEmpty(returnString))
 					{
+						//The talent does not exist. Did you mistype?
 						return "Das Talent existiert nicht. Wurde sich eventuell vertippt?";
 					}
 					return returnString;
 				}
 				else
 				{
+					//@Auther rolled the following:
 					returnString = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **" +
 						d.Roll(20).ToString() + " " + d.Roll(20).ToString() + " " + d.Roll(20).ToString() + "**!";
 				}
@@ -77,6 +80,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//Unknown error
 				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -94,16 +98,19 @@ namespace adhdb.bot
 				if (stringPairs.Length > 1)
 				{
 					double crit = Convert.ToDouble(stringPairs[1]) * 1.5;
+					//Critical hit! XX damage!
 					return "Kritischer Treffer! **" + crit.ToString() + "** Schaden!";
 				}
 				else
 				{
+					//Critical failure! You forgot to input a number, that should be calculated!
 					return "Kritischer Fehlschlag! Es wurde vergessen, eine Zahl einzugeben, die berechnet werden soll!";
 				}
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//Unknown error.
 				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -148,6 +155,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//Unknown error.
 				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -182,6 +190,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//Unknown error.
 				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
 			}
 		}
@@ -252,6 +261,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				//Unknown error.
 				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
 			}
 		}
