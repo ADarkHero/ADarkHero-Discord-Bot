@@ -55,14 +55,14 @@ namespace adhdb.bot
 					if (String.IsNullOrEmpty(returnString))
 					{
 						//The term was not found.
-						return "Der Begriff wurde leider nicht gefunden.";
+						return "Zu dem Begriff wurden leider keine Einträge gefunden.";
 					}
 					else
 					{
 						//Put link in front of the string
-						returnString = "https://de.wikipedia.org/wiki/" + corrSearch + "\r\n" + returnString;
+						returnString = "https://de.wikipedia.org/wiki/" + corrSearch.Replace(" ", "%20") + "\r\n" + returnString;
 
-						//We don't want to spam everything... We only want the first paragraph.
+						//We don't want to spam everything... We only want to display the first paragraph.
 						if (returnString.Contains("=="))
 						{
 							returnString = returnString.Substring(0, returnString.IndexOf("=="));
