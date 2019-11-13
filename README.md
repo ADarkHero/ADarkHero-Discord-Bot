@@ -24,6 +24,12 @@ A Discord Bot made for self hosting and customization.
   * Display a Youtube video, based on user inputs (!yt All Star, !yt asdf etc.)
 * GitHub
   * Display the current changelog, based on the most recent GitHub release
+* Reactions
+  * Reacting to specific keywords in messages
+    * 69 => 😏
+    * rip => ☠
+    * uwu => 🐙
+  * Reacting to other reactions, for example it also reacts with a ❤, when another person reacts with a ❤
 * Other
   * Do simple math with two numbers (!2+4, !3\*8, !4/2 etc.)
   
