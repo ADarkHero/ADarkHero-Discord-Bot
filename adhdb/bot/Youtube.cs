@@ -67,7 +67,7 @@ namespace adhdb.bot
 
 						//Create returnstring
 						returnString = "**" + data.items[0].snippet.title + "**" +
-										" from *" + data.items[0].snippet.channelTitle + "*\r\n\r\n" +
+										" von *" + data.items[0].snippet.channelTitle + "*\r\n\r\n" +
 										data.items[0].snippet.description + "\r\n\r\n\r\n" +
 										"https://www.youtube.com/watch?v=" + data.items[0].id.videoId;
 					}

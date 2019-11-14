@@ -36,9 +36,9 @@ namespace adhdb.bot
 		}
 
 		/// <summary>
-		/// 
+		/// Displays the first paragraph of a Wikipedia page in Dicord.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Message that should be displayed by the bot.</returns>
 		public String ReadWikipediaEntry()
 		{
 			try
@@ -129,8 +129,8 @@ namespace adhdb.bot
 		/// <summary>
 		/// Displays the text of a Wikipedia article
 		/// </summary>
-		/// <param name="search">The article you want to dispay. Note: The article must exist!</param>
-		/// <returns>The text of the article.</returns>
+		/// <param name="search">The article you want to dispay.</param>
+		/// <returns>The text of the article or an empty String, if the article does not exist.</returns>
 		private static string GetWikipediaArticle(String search)
 		{
 			try
