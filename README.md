@@ -24,6 +24,8 @@ A Discord Bot made for self hosting and customization.
   * Show meta builds for league champions (!lol Ashe, !lol Lux, !lol Gnar etc.)
 * **Youtube**
   * Display a Youtube video, based on user inputs (!yt All Star, !yt asdf etc.)
+* **Wikipedia**
+  * Searches Wikipedia (!wiki League of Legends, !wiki Penis etc.)
 * **GitHub**
   * Display the current changelog, based on the most recent GitHub release
 * **Reactions**
