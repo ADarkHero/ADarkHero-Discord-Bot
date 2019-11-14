@@ -66,6 +66,7 @@ namespace adhdb
 				//Checks for commands
 				String command = "";
 
+				//Debugging/Logging
 				//await message.Channel.SendMessageAsync((msg.Content.ToString());
 
 				if (msg.Content.StartsWith(sqlh.DiscordChar))
@@ -137,6 +138,7 @@ namespace adhdb
 			{
 				var message = await cachedMessage.GetOrDownloadAsync();
 
+				//Debugging/Logging
 				//await message.Channel.SendMessageAsync(reaction.Emote.Name);
 
 				//If someone reacts with a heart, the bot reacts with a heart too. Love for everyone! <3
@@ -146,7 +148,7 @@ namespace adhdb
 					await re.AddNewReaction(message, new Emoji("❤"));
 				}
 
-				//Hash Code for 😏
+				//😏😏😏
 				if (reaction.Emote.Name.Contains("😏"))
 				{
 					Reactor re = new Reactor();

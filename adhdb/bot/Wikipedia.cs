@@ -46,7 +46,7 @@ namespace adhdb.bot
 				String[] stringPairs = Msg.Content.Split(' ');
 				if (stringPairs.Length > 1)
 				{
-					String search = Msg.Content.Remove(0, Msg.Content.IndexOf(' ') + 1).Replace(" ", "%20");
+					String search = Msg.Content.Remove(0, Msg.Content.IndexOf(' ') + 1).Replace(" ", "_");
 					String corrSearch = SearchOnWikipedia(search);
 
 					String returnString = GetWikipediaArticle(corrSearch);
@@ -60,7 +60,7 @@ namespace adhdb.bot
 					else
 					{
 						//Put link in front of the string
-						returnString = "https://de.wikipedia.org/wiki/" + corrSearch.Replace(" ", "%20") + "\r\n" + returnString;
+						returnString = "https://de.wikipedia.org/wiki/" + corrSearch.Replace(" ", "_") + "\r\n" + returnString;
 
 						//We don't want to spam everything... We only want to display the first paragraph.
 						if (returnString.Contains("=="))
