@@ -1,4 +1,6 @@
-# ADarkHero-Discord-Bot
+# ADarkHero Discord B(r)ot
+![ADarkHero Discord Bot](https://i.imgur.com/BnYfz1s.jpg)
+
 A Discord Bot made for self hosting and customization.
 
 ## Functions
