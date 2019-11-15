@@ -1,6 +1,8 @@
 ﻿using Discord.WebSocket;
 using System;
 using System.Net;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 
 namespace adhdb.bot
@@ -8,15 +10,14 @@ namespace adhdb.bot
 	class Youtube
 	{
 		private SocketMessage Msg;
+		private ResourceManager rm;
 
-		public Youtube()
-		{
-
-		}
 		public Youtube(SocketMessage message)
 		{
 			try
 			{
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".LoL", Assembly.GetExecutingAssembly());
+
 				Msg = message;
 			}
 			catch (Exception ex)
@@ -44,7 +45,7 @@ namespace adhdb.bot
 								"&q=" + Msg.Content.Remove(0, Msg.Content.IndexOf(' ') + 1) +
 								"&type=video" +
 								"&maxResults=1" +
-								"&key=" + sqlh.YoutubeApi;
+								"&key=" + Properties.Settings.Default.YoutubeApi;
 
 					//Create a get-webrequst to get the apis data
 					String returnString = "";
@@ -65,9 +66,9 @@ namespace adhdb.bot
 					//If there was some kind of error, return an error message
 					if (String.IsNullOrEmpty(returnString))
 					{
-						Logger logger = new Logger("Unbekannter Fehler. Bitte erneut versuchen?");
+						Logger logger = new Logger(rm.GetString("SearchVideoError"));
 						//Unknown error. Please try again?
-						return "Unbekannter Fehler. Bitte erneut versuchen?";
+						return rm.GetString("SearchVideoError");
 					}
 
 					return returnString;
@@ -75,7 +76,7 @@ namespace adhdb.bot
 				else
 				{
 					//Please input a search result!
-					return "Bitte einen Suchbegriff eingeben!";
+					return rm.GetString("SearchVideoMissingSearchTerm");
 				}
 
 			}

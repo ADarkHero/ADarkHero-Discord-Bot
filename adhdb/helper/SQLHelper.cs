@@ -12,28 +12,14 @@ namespace adhdb.bot
 
 		private SocketMessage Msg;
 
-		public string DiscordChar { get; set; } //Character, that indicates the start of a discord command
-		public string DiscordToken { get; } //Token of the Discord Bot
-		public string YoutubeApi { get; set; } //Api key for the YouTube Api
-
 		public SQLHelper()
 		{
-			try
-			{
-				DiscordToken = File.ReadAllText("token.txt");
-				readSettings();
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-			}
 		}
 		public SQLHelper(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
-				readSettings();
 			}
 			catch (Exception ex)
 			{
@@ -45,21 +31,32 @@ namespace adhdb.bot
 		/// <summary>
 		/// 
 		/// </summary>
-		private void readSettings()
+		public void ReadSettings()
 		{
 			try
 			{
+				Properties.Settings.Default.DiscordToken = File.ReadAllText("token.txt");
+				Properties.Settings.Default.Save();
+
 				DataTable botSettings = this.SelectSQL("SELECT * FROM settings");
 				foreach (DataRow row in botSettings.Rows)
 				{
 					if (row["SettingsName"].ToString() == "DiscordChar")
 					{
-						DiscordChar = row["SettingsValue"].ToString();
+						Properties.Settings.Default.DiscordChar = row["SettingsValue"].ToString();
+						Properties.Settings.Default.Save();
 					}
 
 					if (row["SettingsName"].ToString() == "YoutubeApi")
 					{
-						YoutubeApi = row["SettingsValue"].ToString();
+						Properties.Settings.Default.YoutubeApi = row["SettingsValue"].ToString();
+						Properties.Settings.Default.Save();
+					}
+
+					if (row["SettingsName"].ToString() == "Language")
+					{
+						Properties.Settings.Default.Language = row["SettingsValue"].ToString();
+						Properties.Settings.Default.Save();
 					}
 				}
 			}
@@ -116,7 +113,7 @@ namespace adhdb.bot
 					returnString += "**";
 					if (row["CommandRegex"].ToString() == "")
 					{
-						returnString += DiscordChar;
+						returnString += Properties.Settings.Default.DiscordChar;
 					}
 					returnString += row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
 				}

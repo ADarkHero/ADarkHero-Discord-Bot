@@ -1,21 +1,22 @@
 ﻿using Discord.WebSocket;
 using System;
 using System.Net;
+using System.Reflection;
+using System.Resources;
 
 namespace adhdb.bot
 {
 	class GitHub
 	{
 		private SocketMessage Msg;
+		private ResourceManager rm;
 
-		public GitHub()
-		{
-
-		}
 		public GitHub(SocketMessage message)
 		{
 			try
 			{
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".DSA", Assembly.GetExecutingAssembly());
+
 				Msg = message;
 			}
 			catch (Exception ex)
@@ -51,7 +52,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return ex.ToString();
+				return rm.GetString("DisplayChangelogError") + "\r\n\r\n" + ex.ToString();
 			}
 
 		}

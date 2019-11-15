@@ -193,7 +193,7 @@
     <Compile Include="bot\GitHub.cs" />
     <Compile Include="helper\Logger.cs" />
     <Compile Include="bot\LoL.cs" />
-    <Compile Include="bot\Reactor.cs" />
+    <Compile Include="helper\Reactor.cs" />
     <Compile Include="helper\SQLHelper.cs" />
     <Compile Include="bot\Wikipedia.cs" />
     <Compile Include="bot\Youtube.cs" />
@@ -203,10 +203,155 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="language\de\CommandManipulator1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommandManipulator.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\DSA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSA.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\GitHub.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GitHub.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\LoL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoL.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\Program1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Program.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\Dice1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dice.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\Wikipedia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wikipedia.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\Youtube.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Youtube.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\CommandManipulator.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommandManipulator.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\Dice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dice.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\DSA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSA.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\GitHub.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GitHub.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\LoL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoL.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\Program1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Program.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\Wikipedia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wikipedia.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\Youtube.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Youtube.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\CommandManipulator.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommandManipulator1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\DSA.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DSA.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\GitHub.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GitHub.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\LoL.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoL.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\Program.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Program1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\Dice.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Dice1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\Wikipedia.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Wikipedia.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\de\Youtube.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Youtube.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\CommandManipulator.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommandManipulator.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\Dice.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Dice.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\DSA.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DSA.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\GitHub.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GitHub.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\LoL.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\Program.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Program1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\Wikipedia.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Wikipedia.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\Youtube.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Youtube.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -222,7 +367,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">

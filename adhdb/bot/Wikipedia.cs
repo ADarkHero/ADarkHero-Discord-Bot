@@ -1,6 +1,8 @@
 ﻿using Discord.WebSocket;
 using System;
 using System.Net;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Xml.Linq;
 
@@ -9,15 +11,14 @@ namespace adhdb.bot
 	class Wikipedia
 	{
 		private SocketMessage Msg;
+		private SQLHelper sqlh = new SQLHelper();
+		private ResourceManager rm;
 
-		public Wikipedia()
-		{
-
-		}
 		public Wikipedia(SocketMessage message)
 		{
 			try
 			{
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".DSA", Assembly.GetExecutingAssembly());
 				Msg = message;
 			}
 			catch (Exception ex)
@@ -46,12 +47,12 @@ namespace adhdb.bot
 					if (String.IsNullOrEmpty(returnString))
 					{
 						//The term was not found.
-						return "Zu dem Begriff wurden leider keine Einträge gefunden.";
+						return rm.GetString("ReadWikipediaEntryNoEntriesFound");
 					}
 					else
 					{
 						//Put link in front of the string
-						returnString = "https://de.wikipedia.org/wiki/" + corrSearch.Replace(" ", "_") + "\r\n" + returnString;
+						returnString = "https://" + Properties.Settings.Default.Language + ".wikipedia.org/wiki/" + corrSearch.Replace(" ", "_") + "\r\n" + returnString;
 
 						//We don't want to spam everything... We only want to display the first paragraph.
 						if (returnString.Contains("=="))
@@ -65,14 +66,14 @@ namespace adhdb.bot
 				else
 				{
 					//Please input a search term
-					return "Bitte einen Suchbegriff eingeben!";
+					return rm.GetString("ReadWikipediaEntryMissingSearchterm");
 				}
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("ReadWikipediaEntryError") + "\r\n\r\n" + ex.ToString();
 			}
 
 		}
@@ -82,11 +83,11 @@ namespace adhdb.bot
 		/// </summary>
 		/// <param name="search">The term you want to search Wikipedia for.</param>
 		/// <returns>The name of the first Wikipedia result.</returns>
-		private static string SearchOnWikipedia(String search)
+		private string SearchOnWikipedia(String search)
 		{
 			try
 			{
-				String sUrl = "https://de.wikipedia.org/w/api.php?action=query&format=xml&list=search&srsearch=" + search;
+				String sUrl = "https://" + Properties.Settings.Default.Language + ".wikipedia.org/w/api.php?action=query&format=xml&list=search&srsearch=" + search;
 
 				String corrSearch = "";
 				using (WebClient wc = new WebClient())
@@ -113,7 +114,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("SearchOnWikipediaError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -122,11 +123,11 @@ namespace adhdb.bot
 		/// </summary>
 		/// <param name="search">The article you want to dispay.</param>
 		/// <returns>The text of the article or an empty String, if the article does not exist.</returns>
-		private static string GetWikipediaArticle(String search)
+		private string GetWikipediaArticle(String search)
 		{
 			try
 			{
-				String url = "https://de.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&explaintext=1&titles=" + search;
+				String url = "https://" + Properties.Settings.Default.Language + ".wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&explaintext=1&titles=" + search;
 
 				using (WebClient wc = new WebClient())
 				{
@@ -149,7 +150,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("SearchOnWikipediaError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 

@@ -11,6 +11,8 @@ using Discord.Commands;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
 
 namespace adhdb
 {
@@ -19,10 +21,9 @@ namespace adhdb
 		static Form1 MyForm;
 
 		private DiscordSocketClient _client;
-		private SQLHelper sqlh = new SQLHelper();
+		private SQLHelper Sqlh = new SQLHelper();
 		private List<Type> ExtensionList = new List<Type>();
-
-
+		ResourceManager rm = null;
 
 		public static void Main(string[] args)
 			=> new Program().MainAsync().GetAwaiter().GetResult();
@@ -39,23 +40,27 @@ namespace adhdb
 					Application.Run(MyForm);
 				*/
 
+				//Read all settings
+				Sqlh.ReadSettings();
+
+				try
+				{
+					rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".Program", Assembly.GetExecutingAssembly());
+				}
+				catch (Exception ex)
+				{
+					Logger logger = new Logger(ex.ToString());
+				}
+
 				//Loads extensions
 				LoadExtensions();
-
-				Assembly[] assems = AppDomain.CurrentDomain.GetAssemblies();
-
-				//List the assemblies in the current application domain.
-				Console.WriteLine("List of assemblies loaded in current appdomain:");
-				foreach (Assembly assem in assems)
-					Console.WriteLine(assem.ToString());
-
 
 				//Starts the discord bot
 				_client = new DiscordSocketClient();
 				_client.MessageReceived += MessageReceivedAsync;
 				_client.ReactionAdded += ReactionReceivedAsync;
 				_client.Log += LogAsync;
-				await _client.LoginAsync(TokenType.Bot, sqlh.DiscordToken);
+				await _client.LoginAsync(TokenType.Bot, Properties.Settings.Default.DiscordToken);
 				await _client.StartAsync();
 
 				// Block this task until the program is closed.
@@ -87,7 +92,7 @@ namespace adhdb
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.ToString());
+				Logger logger = new Logger(ex.ToString());
 			}
 		}
 
@@ -106,10 +111,10 @@ namespace adhdb
 				//Debugging/Logging
 				//await message.Channel.SendMessageAsync((msg.Content.ToString());
 
-				if (msg.Content.StartsWith(sqlh.DiscordChar))
+				if (msg.Content.StartsWith(Properties.Settings.Default.DiscordChar))
 				{
 
-					command = msg.Content.Substring(sqlh.DiscordChar.Length).ToLower(); //Cuts discord char and makes the string lowercase
+					command = msg.Content.Substring(Properties.Settings.Default.DiscordChar.Length).ToLower(); //Cuts discord char and makes the string lowercase
 					if (command.Contains(" "))
 					{
 						command = command.Substring(0, command.IndexOf(" ")); //Cuts everything after first space
@@ -117,7 +122,7 @@ namespace adhdb
 
 					//Read functions from database
 					String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + command + "%' OR CommandRegex is not null COLLATE NOCASE";
-					DataTable sqlResult = sqlh.SelectSQL(sql);
+					DataTable sqlResult = Sqlh.SelectSQL(sql);
 
 					Boolean commandFound = false;
 					foreach (DataRow row in sqlResult.Rows)
@@ -156,7 +161,7 @@ namespace adhdb
 
 					if (!commandFound)
 					{
-						await msg.Channel.SendMessageAsync(">>> " + "Das command wurde nicht gefunden. Wurde sich hier eventuell vertippt?");
+						await msg.Channel.SendMessageAsync(">>> " + rm.GetString("CommandNotFound"));
 					}
 				}
 				//Adds reactions to stuff
@@ -168,6 +173,15 @@ namespace adhdb
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cachedMessage"></param>
+		/// <param name="originChannel"></param>
+		/// <param name="reaction"></param>
+		/// <returns></returns>
+		/// 
+		/// TODO: Move to reactor.
 		private async Task ReactionReceivedAsync(Cacheable<IUserMessage, ulong> cachedMessage,
 			ISocketMessageChannel originChannel, SocketReaction reaction)
 		{
@@ -238,6 +252,7 @@ namespace adhdb
 			}
 			catch (Exception ex)
 			{
+				Logger logger = new Logger(ex.ToString());
 				return ex.ToString();
 			}
 		}

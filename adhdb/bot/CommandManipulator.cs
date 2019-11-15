@@ -2,17 +2,16 @@
 using Discord.WebSocket;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 
 namespace adhdb.bot
 {
 	class CommandManipulator
 	{
 		private SocketMessage Msg;
+		private ResourceManager rm;
 
-		public CommandManipulator()
-		{
-
-		}
 		public CommandManipulator(SocketMessage message)
 		{
 			try
@@ -33,6 +32,8 @@ namespace adhdb.bot
 		{
 			try
 			{
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".CommandManipulator", Assembly.GetExecutingAssembly());
+
 				var user = Msg.Author as SocketGuildUser;
 				var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
 
@@ -56,17 +57,17 @@ namespace adhdb.bot
 					}
 
 					//Please input all neccessary arguments. For example !addcommand ping Pong Pong Pong.
-					return "Bitte gib alle notwendigen Argumente ein. z.B.: !addcommand ping Pong Pong Pong.";
+					return rm.GetString("AddNewCommandMissingArguments");
 				}
 
 				//Only administrators can use this command.
-				return "Dieser Befehl steht nur Administratoren zur Verfügung.";
+				return rm.GetString("AddNewCommandMissingRights");
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error!
-				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
+				return rm.GetString("AddNewCommandError") + "\r\n\r\n" + ex.ToString();
 			}
 
 		}

@@ -1,6 +1,8 @@
 ﻿using Discord.WebSocket;
 using System;
 using System.Data;
+using System.Reflection;
+using System.Resources;
 using System.Text.RegularExpressions;
 
 namespace adhdb.bot
@@ -10,26 +12,29 @@ namespace adhdb.bot
 		private SocketMessage Msg;
 		private String Com = "";
 		private DataRow Row = null;
-		Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
+		private SQLHelper Sqlh = new SQLHelper();
+		private ResourceManager rm;
+		private Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
 
 		public Dice()
 		{
+
 		}
 		public Dice(SocketMessage message)
 		{
 			try
 			{
-				SQLHelper sqlh = new SQLHelper();
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".Dice", Assembly.GetExecutingAssembly());
 
 				Msg = message;
-				Com = Msg.Content.Substring(sqlh.DiscordChar.Length).ToLower(); //Cut Discord char
+				Com = Msg.Content.Substring(Properties.Settings.Default.DiscordChar.Length).ToLower(); //Cut Discord char
 				if (Com.Contains(" "))
 				{
 					Com = Com.Substring(0, Com.IndexOf(" ")); //Cut everything after first space
 				}
 
 				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + Com + "%' OR CommandRegex is not null COLLATE NOCASE";
-				DataTable sqlResult = sqlh.SelectSQL(sql);
+				DataTable sqlResult = Sqlh.SelectSQL(sql);
 				foreach (DataRow sqlrow in sqlResult.Rows)
 				{
 					if (Regex.Match(Com, sqlrow["CommandRegex"].ToString()).Success)
@@ -78,7 +83,7 @@ namespace adhdb.bot
 				var match = Regex.Match(Com, @Row["CommandRegex"].ToString());
 				int diceRoll = Convert.ToInt16(match.Groups[2].Value);
 				int roll = Roll(diceRoll);
-				String returnStr = "<@" + Msg.Author.Id + "> hat eine **" + roll + "** gewürfelt!";
+				String returnStr = String.Format(rm.GetString("RollStrBase"), Msg.Author.Id, roll);
 
 				try
 				{
@@ -89,9 +94,9 @@ namespace adhdb.bot
 					double sum = MathOperation(manipulator, roll, manipulatorValue);
 
 					//The result was changed by XX.
-					returnStr += " Das Ergebnis wurde um **" + manipulator + manipulatorValue.ToString() + "** abgeändert. ";
+					returnStr += " " + String.Format(rm.GetString("RollStrManipulation"), manipulator, manipulatorValue.ToString()) + " ";
 					//The result is XX.
-					returnStr += "\r\nDas Gesamtergebnis beträgt **" + sum.ToString() + "**!";
+					returnStr += "\r\n" + String.Format(rm.GetString("RollStrResult"), sum.ToString());
 				}
 				catch (Exception ex)
 				{
@@ -104,7 +109,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Please input a integer to throw a dice. For excample: !d20, !d6 etc.
-				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. !w20, !w6, !d20, !d6 etc.\r\n\r\n" + ex.ToString();
+				return rm.GetString("RollStrError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -133,7 +138,7 @@ namespace adhdb.bot
 				double sum = 0;
 				//Write the rolls to a string and calculate a sum of all rolls.
 				//@Author rolled the following: 
-				String returnStr = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: ";
+				String returnStr = String.Format(rm.GetString("RollMultipleStrBase"), Msg.Author.Id) + " ";
 				for (int i = 0; i < numberOfDice; i++)
 				{
 					roll = Roll(diceRoll);
@@ -154,12 +159,12 @@ namespace adhdb.bot
 					sum = MathOperation(manipulator, sum, manipulatorValue);
 
 					//The result was manipulated by XX.
-					returnStr += "Das Ergebnis wurde um **" + manipulator + manipulatorValue.ToString() + "** abgeändert. ";
+					returnStr += String.Format(rm.GetString("RollMultipleStrManipulation"), manipulator, manipulatorValue.ToString()) + " ";
 				}
 				catch (Exception ex) { Console.WriteLine(ex.ToString()); }
 
 				//The result is XX.
-				returnStr += "\r\nDas Gesamtergebnis beträgt **" + sum.ToString() + "**!";
+				returnStr += "\r\n" + String.Format(rm.GetString("RollMultipleStrManipulation"), sum.ToString());
 
 				return returnStr;
 			}
@@ -167,7 +172,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Please input a integer to throw a dice. For example !1d20, !2d6, !3d20, !4d6 etc.
-				return "Bitte eine Ganzzahl eingeben, um Würfel zu werfen. z.B. !1w20, !2w6, !3d20, !4d6 etc.\r\n\r\n" + ex.ToString();
+				return rm.GetString("RollMultipleStrError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -183,15 +188,15 @@ namespace adhdb.bot
 				Boolean cf = CoinFlip();
 				if (cf)
 				{
-					return "yes.";
+					return rm.GetString("CoinFlipStrYes");
 				}
-				return "no";
+				return rm.GetString("CoinFlipStrNo");
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
 				//This should never happen. But if it does, at least it's funny!
-				return "maybe?";
+				return rm.GetString("CoinFlipStrMaybe");
 			}
 		}
 
@@ -233,13 +238,13 @@ namespace adhdb.bot
 				double result = MathOperation(mathOperator, x, y);
 
 				//The result of XXXXXX is XX!
-				return "Das Ergebnis von **" + x.ToString() + mathOperator + y.ToString() + "** ist **" + result.ToString() + "**!";
+				return String.Format(rm.GetString("DoSimpleMathStrResult"), x.ToString(), mathOperator, y.ToString(), result.ToString());
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
 				//The input was invalid.
-				return "Ungültige Eingabe.\r\n\r\n" + ex.ToString();
+				return rm.GetString("DoSimpleMathError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 

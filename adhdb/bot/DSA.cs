@@ -1,6 +1,8 @@
 ﻿using Discord.WebSocket;
 using System;
 using System.Data;
+using System.Reflection;
+using System.Resources;
 
 namespace adhdb.bot
 {
@@ -8,16 +10,15 @@ namespace adhdb.bot
 	{
 		private SQLHelper sqlh = new SQLHelper();
 		private SocketMessage Msg;
-		Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
+		private ResourceManager rm;
+		private Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
 
-		public DSA()
-		{
-
-		}
 		public DSA(SocketMessage message)
 		{
 			try
 			{
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".DSA", Assembly.GetExecutingAssembly());
+
 				Msg = message;
 			}
 			catch (Exception ex)
@@ -48,7 +49,7 @@ namespace adhdb.bot
 					foreach (DataRow row in dt.Rows)
 					{
 						//@Auther rolls for the talent XX:
-						returnString = "<@" + Msg.Author.Id + "> würfelt auf " + row["DSATalentName"].ToString() + ":\r\n" +
+						returnString = String.Format(rm.GetString("RollStrBase"), Msg.Author.Id, row["DSATalentName"].ToString()) + "\r\n" +
 										"**" + row["DSATrait1"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
 										"**" + row["DSATrait2"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
 										"**" + row["DSATrait3"].ToString() + ": " + d.Roll(20).ToString() + "**";
@@ -56,14 +57,14 @@ namespace adhdb.bot
 					if (String.IsNullOrEmpty(returnString))
 					{
 						//The talent does not exist. Did you mistype?
-						return "Das Talent existiert nicht. Wurde sich eventuell vertippt?";
+						return rm.GetString("RollDSATalentNonExistent");
 					}
 					return returnString;
 				}
 				else
 				{
 					//@Auther rolled the following:
-					returnString = "<@" + Msg.Author.Id + "> hat folgendes gewürfelt: **" +
+					returnString = String.Format(rm.GetString("RollDSABaseWithoutTalent"), Msg.Author.Id) + "**" +
 						d.Roll(20).ToString() + " " + d.Roll(20).ToString() + " " + d.Roll(20).ToString() + "**!";
 				}
 
@@ -73,7 +74,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("RollDSAError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -91,19 +92,19 @@ namespace adhdb.bot
 				{
 					double crit = Convert.ToDouble(stringPairs[1]) * 1.5;
 					//Critical hit! XX damage!
-					return "Kritischer Treffer! **" + crit.ToString() + "** Schaden!";
+					return String.Format(rm.GetString("CritDamage"), crit.ToString());
 				}
 				else
 				{
 					//Critical failure! You forgot to input a number, that should be calculated!
-					return "Kritischer Fehlschlag! Es wurde vergessen, eine Zahl einzugeben, die berechnet werden soll!";
+					return rm.GetString("CritMissingNumber");
 				}
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("CritError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -148,7 +149,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("RandomLootStrError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -183,7 +184,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("MultipleLootStrError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -254,7 +255,7 @@ namespace adhdb.bot
 			{
 				Logger logger = new Logger(ex.ToString());
 				//Unknown error.
-				return "Unbekannter Fehler.\r\n\r\n" + ex.ToString();
+				return rm.GetString("LootChancesError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
