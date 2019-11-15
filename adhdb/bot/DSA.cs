@@ -259,5 +259,31 @@ namespace adhdb.bot
 			}
 		}
 
+		/// <summary>
+		/// Lists all DSA talents
+		/// </summary>
+		/// <returns>String that gets displayed by the bot.</returns>
+		public String ListAllDSAFunctions()
+		{
+			try
+			{
+				String returnString = "";
+
+				DataTable commands = sqlh.SelectSQL("SELECT * FROM dsa WHERE DSAAlias is null ORDER BY DSATalentName");
+				foreach (DataRow row in commands.Rows)
+				{
+					returnString += "**" + row["DSATalentName"].ToString() + "** " +
+						"(" + row["DSATrait1"].ToString() + ", " + row["DSATrait2"].ToString() + ", " + row["DSATrait3"].ToString() + "), ";
+				}
+
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
+			}
+		}
+
 	}
 }

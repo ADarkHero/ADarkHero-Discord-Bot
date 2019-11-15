@@ -165,7 +165,8 @@ namespace adhdb
 					}
 				}
 				//Adds reactions to stuff
-				Reactor re = new Reactor(msg);
+				Reactor re = new Reactor();
+				await re.ReactorAsync(msg);
 			}
 			catch (Exception ex)
 			{
@@ -180,36 +181,11 @@ namespace adhdb
 		/// <param name="originChannel"></param>
 		/// <param name="reaction"></param>
 		/// <returns></returns>
-		/// 
-		/// TODO: Move to reactor.
 		private async Task ReactionReceivedAsync(Cacheable<IUserMessage, ulong> cachedMessage,
 			ISocketMessageChannel originChannel, SocketReaction reaction)
 		{
-			try
-			{
-				var message = await cachedMessage.GetOrDownloadAsync();
-
-				//Debugging/Logging
-				//await message.Channel.SendMessageAsync(reaction.Emote.Name);
-
-				//If someone reacts with a heart, the bot reacts with a heart too. Love for everyone! <3
-				if (reaction.Emote.Name.Contains("❤"))
-				{
-					Reactor re = new Reactor();
-					await re.AddNewReaction(message, new Emoji("❤"));
-				}
-
-				//😏😏😏
-				if (reaction.Emote.Name.Contains("😏"))
-				{
-					Reactor re = new Reactor();
-					await re.AddNewReaction(message, new Emoji("😏"));
-				}
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-			}
+			Reactor re = new Reactor();
+			await re.ReactToReactions(cachedMessage, reaction);
 		}
 
 

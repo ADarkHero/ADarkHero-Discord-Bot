@@ -11,18 +11,7 @@ namespace adhdb.bot
 		{
 
 		}
-		public Reactor(SocketMessage msg)
-		{
-			try
-			{
-				var usermsg = msg as IUserMessage;
-				ReactorAsync(usermsg);
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-			}
-		}
+
 		public Reactor(IUserMessage msg)
 		{
 			try
@@ -40,6 +29,18 @@ namespace adhdb.bot
 		/// </summary>
 		/// <param name="msg">Message that should be checked.</param>
 		/// <returns>Task.</returns>
+		public async Task ReactorAsync(SocketMessage msg)
+		{
+			try
+			{
+				var usermsg = msg as IUserMessage;
+				await ReactorAsync(usermsg);
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
+		}
 		public async Task ReactorAsync(IUserMessage usermsg)
 		{
 			try
@@ -141,6 +142,38 @@ namespace adhdb.bot
 				if (content.Contains("rip"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("☠"));
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+			}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cachedMessage"></param>
+		/// <param name="reaction"></param>
+		/// <returns></returns>
+		public async Task ReactToReactions(Cacheable<IUserMessage, ulong> cachedMessage, SocketReaction reaction)
+		{
+			try
+			{
+				var message = await cachedMessage.GetOrDownloadAsync();
+
+				//Debugging/Logging
+				//await message.Channel.SendMessageAsync(reaction.Emote.Name);
+
+				//If someone reacts with a heart, the bot reacts with a heart too. Love for everyone! <3
+				if (reaction.Emote.Name.Contains("❤"))
+				{
+					await AddNewReaction(message, new Emoji("❤"));
+				}
+
+				//😏😏😏
+				if (reaction.Emote.Name.Contains("😏"))
+				{
+					await AddNewReaction(message, new Emoji("😏"));
 				}
 			}
 			catch (Exception ex)

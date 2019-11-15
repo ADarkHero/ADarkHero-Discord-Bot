@@ -129,34 +129,6 @@ namespace adhdb.bot
 
 
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		/// 
-		/// TODO: Probably move to DSA() => Don't forget to also change the function in the database
-		public String ListAllDSAFunctions()
-		{
-			try
-			{
-				String returnString = "";
-
-				DataTable commands = SelectSQL("SELECT * FROM dsa WHERE DSAAlias is null ORDER BY DSATalentName");
-				foreach (DataRow row in commands.Rows)
-				{
-					returnString += "**" + row["DSATalentName"].ToString() + "** " +
-						"(" + row["DSATrait1"].ToString() + ", " + row["DSATrait2"].ToString() + ", " + row["DSATrait3"].ToString() + "), ";
-				}
-
-				return returnString;
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
-			}
-		}
-
-		/// <summary>
 		/// Reads stuff from sql database.
 		/// </summary>
 		/// <param name="query">Select query that should be executed.</param>
