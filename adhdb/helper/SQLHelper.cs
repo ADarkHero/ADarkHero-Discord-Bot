@@ -1,12 +1,8 @@
 ﻿using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace adhdb.bot
 {
@@ -15,8 +11,6 @@ namespace adhdb.bot
 		private SQLiteConnection sqlite = new SQLiteConnection("Data Source=database.db");
 
 		private SocketMessage Msg;
-		private String Com = "";
-		private DataRow Row = null;
 
 		public string DiscordChar { get; set; } //Character, that indicates the start of a discord command
 		public string DiscordToken { get; } //Token of the Discord Bot
@@ -34,13 +28,11 @@ namespace adhdb.bot
 				Logger logger = new Logger(ex.ToString());
 			}
 		}
-		public SQLHelper(SocketMessage message, string command, DataRow drow)
+		public SQLHelper(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
-				Com = command;
-				Row = drow;
 				readSettings();
 			}
 			catch (Exception ex)

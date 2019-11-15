@@ -1,12 +1,7 @@
 ﻿using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace adhdb.bot
@@ -14,20 +9,16 @@ namespace adhdb.bot
 	class Wikipedia
 	{
 		private SocketMessage Msg;
-		private String Com = "";
-		private DataRow Row = null;
 
 		public Wikipedia()
 		{
 
 		}
-		public Wikipedia(SocketMessage message, string command, DataRow drow)
+		public Wikipedia(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
-				Com = command;
-				Row = drow;
 			}
 			catch (Exception ex)
 			{

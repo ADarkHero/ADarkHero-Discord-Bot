@@ -1,31 +1,23 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace adhdb.bot
 {
 	class CommandManipulator
 	{
 		private SocketMessage Msg;
-		private String Com = "";
-		private DataRow Row = null;
 
 		public CommandManipulator()
 		{
 
 		}
-		public CommandManipulator(SocketMessage message, string command, DataRow drow)
+		public CommandManipulator(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
-				Com = command;
-				Row = drow;
 			}
 			catch (Exception ex)
 			{

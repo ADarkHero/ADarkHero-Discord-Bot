@@ -21,17 +21,35 @@ namespace adhdb.bot
 		public Dice()
 		{
 		}
-		public Dice(SocketMessage message, string command, DataRow drow)
+		public Dice(SocketMessage message)
 		{
 			try
 			{
+				SQLHelper sqlh = new SQLHelper();
+
 				Msg = message;
-				Com = command;
-				Row = drow;
+				Com = Msg.Content.Substring(sqlh.DiscordChar.Length).ToLower(); //Cut Discord char
+				if (Com.Contains(" "))
+				{
+					Com = Com.Substring(0, Com.IndexOf(" ")); //Cut everything after first space
+				}
+
+				String sql = "SELECT * FROM commands WHERE CommandName LIKE '%" + Com + "%' OR CommandRegex is not null COLLATE NOCASE";
+				DataTable sqlResult = sqlh.SelectSQL(sql);
+				foreach (DataRow sqlrow in sqlResult.Rows)
+				{
+					if (Regex.Match(Com, sqlrow["CommandRegex"].ToString()).Success)
+					{
+						Row = sqlrow;
+						break;
+					}
+				}
+
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+				Console.WriteLine(ex.ToString());
 			}
 		}
 

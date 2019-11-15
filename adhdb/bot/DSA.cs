@@ -1,10 +1,6 @@
 ﻿using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace adhdb.bot
 {
@@ -12,21 +8,17 @@ namespace adhdb.bot
 	{
 		private SQLHelper sqlh = new SQLHelper();
 		private SocketMessage Msg;
-		private String Com = "";
-		private DataRow Row = null;
 		Random rand = new Random(); //The object has to be created here to work. If we create it in Roll(), it will always return the same number.
 
 		public DSA()
 		{
 
 		}
-		public DSA(SocketMessage message, string command, DataRow drow)
+		public DSA(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
-				Com = command;
-				Row = drow;
 			}
 			catch (Exception ex)
 			{

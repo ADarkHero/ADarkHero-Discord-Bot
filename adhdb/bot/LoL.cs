@@ -1,33 +1,23 @@
 ﻿using Discord.WebSocket;
 using HtmlAgilityPack;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace adhdb.bot
 {
 	class LoL
 	{
 		private SocketMessage Msg;
-		private String Com = "";
-		private DataRow Row = null;
 
 		public LoL()
 		{
 
 		}
-		public LoL(SocketMessage message, string command, DataRow drow)
+		public LoL(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
-				Com = command;
-				Row = drow;
 			}
 			catch (Exception ex)
 			{

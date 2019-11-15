@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Discord;
 using Discord.WebSocket;
 using System.Text.RegularExpressions;
@@ -102,7 +100,7 @@ namespace adhdb
 						//Regex and more complex functions
 						else if (commandType >= 100 && (Regex.Match(command, row["CommandRegex"].ToString()).Success || row["CommandName"].ToString() == command))
 						{
-							String sendMessage = ExecuteFunctionByString(msg, command, row);
+							String sendMessage = ExecuteFunctionByString(msg, row["CommandObject"].ToString(), row["CommandFunction"].ToString());
 							//Discord doesn't like too long messages. Split it, if its too long.
 							if (sendMessage.Length > 2000)
 							{
@@ -171,16 +169,16 @@ namespace adhdb
 		/// <param name="command"></param>
 		/// <param name="row"></param>
 		/// <returns></returns>
-		private String ExecuteFunctionByString(SocketMessage msg, string command, DataRow row)
+		private String ExecuteFunctionByString(SocketMessage msg, String commandObject, String commandFunction)
 		{
 			try
 			{
-				Type t = Type.GetType("adhdb.bot." + row["CommandObject"].ToString());
-				Object[] args = { msg, command, row };
+				Type t = Type.GetType("adhdb.bot." + commandObject);
+				Object[] args = { msg };
 				object o = Activator.CreateInstance(t, args);
 
 				Type thisType = o.GetType();
-				MethodInfo theMethod = thisType.GetMethod(row["CommandFunction"].ToString());
+				MethodInfo theMethod = thisType.GetMethod(commandFunction);
 
 				return (String)theMethod.Invoke(o, null);
 			}

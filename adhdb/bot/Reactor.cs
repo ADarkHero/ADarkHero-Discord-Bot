@@ -26,7 +26,6 @@ namespace adhdb.bot
 				Logger logger = new Logger(ex.ToString());
 			}
 		}
-
 		public Reactor(IUserMessage msg)
 		{
 			try
