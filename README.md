@@ -38,6 +38,7 @@ A Discord Bot made for self hosting and customization.
   * Do simple math with two numbers (!2+4, !3\*8, !4/2 etc.)
   
 ## Uses the following C# packages
+* .NET Framework 4.6.1
 * Discord.Net
 * HtmlAgilityPack
 * Newtonsoft.Json
