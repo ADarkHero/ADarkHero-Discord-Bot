@@ -7,8 +7,10 @@ using System.Text.RegularExpressions;
 using adhdb.bot;
 using System.Data;
 using System.Reflection;
-using System.IO;
 using Discord.Commands;
+using System.IO;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace adhdb
 {
@@ -18,6 +20,8 @@ namespace adhdb
 
 		private DiscordSocketClient _client;
 		private SQLHelper sqlh = new SQLHelper();
+		private List<Type> ExtensionList = new List<Type>();
+
 
 
 		public static void Main(string[] args)
@@ -35,6 +39,17 @@ namespace adhdb
 					Application.Run(MyForm);
 				*/
 
+				//Loads extensions
+				LoadExtensions();
+
+				Assembly[] assems = AppDomain.CurrentDomain.GetAssemblies();
+
+				//List the assemblies in the current application domain.
+				Console.WriteLine("List of assemblies loaded in current appdomain:");
+				foreach (Assembly assem in assems)
+					Console.WriteLine(assem.ToString());
+
+
 				//Starts the discord bot
 				_client = new DiscordSocketClient();
 				_client.MessageReceived += MessageReceivedAsync;
@@ -49,6 +64,30 @@ namespace adhdb
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
+			}
+		}
+
+		/// <summary>
+		/// Loads all custom extensions
+		/// </summary>
+		private void LoadExtensions()
+		{
+			try
+			{
+				string path = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\ext\";
+				foreach (string dll in Directory.GetFiles(path, "*.dll"))
+				{
+					var dl = Assembly.LoadFile(dll);
+
+					foreach (Type type in dl.GetExportedTypes())
+					{
+						ExtensionList.Add(type);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
 			}
 		}
 
@@ -175,7 +214,22 @@ namespace adhdb
 			{
 				Type t = Type.GetType("adhdb.bot." + commandObject);
 				Object[] args = { msg };
-				object o = Activator.CreateInstance(t, args);
+				object o = null;
+				try
+				{
+					o = Activator.CreateInstance(t, args);
+				}
+				//If we can't create an object the "normal" way, the object must be an extension.
+				catch (Exception ex)
+				{
+					foreach (Type extType in ExtensionList)
+					{
+						if (extType.Name.Contains(commandObject))
+						{
+							o = Activator.CreateInstance(extType, args);
+						}
+					}
+				}
 
 				Type thisType = o.GetType();
 				MethodInfo theMethod = thisType.GetMethod(commandFunction);
