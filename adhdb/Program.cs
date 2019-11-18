@@ -138,24 +138,40 @@ namespace adhdb
 						int commandType = Convert.ToInt16(row["CommandType"].ToString());
 						if (row["CommandName"].ToString() == command && commandType < 100)
 						{
-							await msg.Channel.SendMessageAsync(">>> " + row["CommandComment"].ToString());
+							if (checkRights(msg, row["CommandRights"].ToString()))
+							{
+								await msg.Channel.SendMessageAsync(">>> " + row["CommandComment"].ToString());
+							}
+							else
+							{
+								await msg.Channel.SendMessageAsync(">>> ");
+							}
 							commandFound = true;
+							break;
 						}
 						//Regex and more complex functions
 						else if (commandType >= 100 && (Regex.Match(command, row["CommandRegex"].ToString()).Success || row["CommandName"].ToString() == command))
 						{
-							String sendMessage = ExecuteFunctionByString(msg, row["CommandObject"].ToString(), row["CommandFunction"].ToString());
-							//Discord doesn't like too long messages. Split it, if its too long.
-							if (sendMessage.Length > 2000)
+							if (checkRights(msg, row["CommandRights"].ToString()))
 							{
-								while (sendMessage.Length > 2000)
+								String sendMessage = ExecuteFunctionByString(msg, row["CommandObject"].ToString(), row["CommandFunction"].ToString());
+								//Discord doesn't like too long messages. Split it, if its too long.
+								if (sendMessage.Length > 2000)
 								{
-									await msg.Channel.SendMessageAsync(">>> " + sendMessage.Substring(0, 1995)); //Post 2000 chars
-									sendMessage = sendMessage.Substring(1995); //Cut first 2000 chars
+									while (sendMessage.Length > 2000)
+									{
+										await msg.Channel.SendMessageAsync(">>> " + sendMessage.Substring(0, 1995)); //Post 2000 chars
+										sendMessage = sendMessage.Substring(1995); //Cut first 2000 chars
+									}
 								}
+								await msg.Channel.SendMessageAsync(">>> " + sendMessage);
 							}
-							await msg.Channel.SendMessageAsync(">>> " + sendMessage);
+							else
+							{
+								await msg.Channel.SendMessageAsync(">>> ");
+							}
 							commandFound = true;
+							break;
 						}
 					}
 
@@ -172,6 +188,37 @@ namespace adhdb
 			{
 				Logger logger = new Logger(ex.ToString());
 			}
+		}
+
+		/// <summary>
+		/// Checks, if the user has enought rights to use an command
+		/// </summary>
+		/// <param name="msg">Message that was sent by the user</param>
+		/// <param name="rights">Rights that are needed to use a command</param>
+		/// <returns></returns>
+		private bool checkRights(SocketMessage msg, String rights)
+		{
+			if (String.IsNullOrEmpty(rights))
+			{
+				return true;
+			}
+			else
+			{
+				var user = msg.Author as SocketGuildUser;
+				var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
+
+				//User needs server admin rights
+				if (rights.Equals("1"))
+				{
+					if (user.GuildPermissions.Administrator)
+					{
+						return true;
+					}
+					return false;
+				}
+				//Add more right checks here
+			}
+			return false;
 		}
 
 		/// <summary>

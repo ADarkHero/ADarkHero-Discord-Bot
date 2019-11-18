@@ -127,9 +127,9 @@
     <value>Dieser Befehl steht nur Administratoren zur Verfügung.</value>
   </data>
   <data name="ChangeLanguageError" xml:space="preserve">
-    <value>Unbekannter Fehler!</value>
+    <value>Die angegebene Sprache existiert nicht!</value>
   </data>
-  <data name="ChangeLanguageMissingRights" xml:space="preserve">
-    <value>Dieser Befehl steht nur Administratoren zur Verfügung.</value>
+  <data name="ChangeLanguageMissingInput" xml:space="preserve">
+    <value>Bitte gib alle notwendigen Argumente ein. z.B.: !changeLanguage de</value>
   </data>
 </root>

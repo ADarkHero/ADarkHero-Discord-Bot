@@ -61,6 +61,15 @@ namespace adhdb.language.de {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Du hast nicht genügend Rechte, um dieses command zu verwenden..
+        /// </summary>
+        internal static string CommandNotEnoughtRights {
+            get {
+                return ResourceManager.GetString("CommandNotEnoughtRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Das command wurde nicht gefunden. Wurde sich hier eventuell vertippt?.
         /// </summary>
         internal static string CommandNotFound {

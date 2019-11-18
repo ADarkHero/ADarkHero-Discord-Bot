@@ -88,7 +88,7 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown error!.
+        ///   Looks up a localized string similar to The language does not exist..
         /// </summary>
         internal static string ChangeLanguageError {
             get {
@@ -97,11 +97,11 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only server admins can use this command..
+        ///   Looks up a localized string similar to Please input all relevant arguments. For example: !changeLanguage de.
         /// </summary>
-        internal static string ChangeLanguageMissingRights {
+        internal static string ChangeLanguageMissingInput {
             get {
-                return ResourceManager.GetString("ChangeLanguageMissingRights", resourceCulture);
+                return ResourceManager.GetString("ChangeLanguageMissingInput", resourceCulture);
             }
         }
     }

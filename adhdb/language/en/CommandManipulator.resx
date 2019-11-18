@@ -127,9 +127,9 @@
     <value>Only server admins can use this command.</value>
   </data>
   <data name="ChangeLanguageError" xml:space="preserve">
-    <value>Unknown error!</value>
+    <value>The language does not exist.</value>
   </data>
-  <data name="ChangeLanguageMissingRights" xml:space="preserve">
-    <value>Only server admins can use this command.</value>
+  <data name="ChangeLanguageMissingInput" xml:space="preserve">
+    <value>Please input all relevant arguments. For example: !changeLanguage de</value>
   </data>
 </root>

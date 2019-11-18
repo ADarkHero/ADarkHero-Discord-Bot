@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CommandNotEnoughtRights" xml:space="preserve">
+    <value>Du hast nicht genügend Rechte, um dieses command zu verwenden.</value>
+  </data>
   <data name="CommandNotFound" xml:space="preserve">
     <value>Das command wurde nicht gefunden. Wurde sich hier eventuell vertippt?</value>
   </data>
