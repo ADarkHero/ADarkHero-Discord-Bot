@@ -120,6 +120,10 @@ namespace adhdb.bot
 					{
 						returnString += Properties.Settings.Default.DiscordChar;
 					}
+
+
+					returnString += row["CommandName"].ToString() + "**: ";
+
 					try
 					{
 						if (!String.IsNullOrEmpty(row["CommandComment_" + Properties.Settings.Default.Language].ToString()))
@@ -134,10 +138,10 @@ namespace adhdb.bot
 					}
 					catch (Exception ex)
 					{
-						returnString += row["CommandName"].ToString();
+						returnString += row["CommandComment"].ToString();
 					}
 
-					returnString += "**: " + row["CommandComment"].ToString() + "\r\n";
+					returnString += "\r\n";
 				}
 
 				return returnString;
