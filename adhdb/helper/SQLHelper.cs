@@ -171,6 +171,11 @@ namespace adhdb.bot
 		{
 			try
 			{
+				Properties.Settings.Default.Language = lang;
+				rm = new ResourceManager("adhdb.language." + lang + ".SQLHelper", Assembly.GetExecutingAssembly());
+				//If the language does not exist, this method throws an error
+				String returnString = rm.GetString("SetLanguageLanguageSet");
+
 				SQLiteCommand insertSQL = new SQLiteCommand(
 								"UPDATE settings " +
 								"SET SettingsValue = @param1 " +
@@ -181,15 +186,12 @@ namespace adhdb.bot
 
 				insertSQL.ExecuteNonQuery();
 
-				Properties.Settings.Default.Language = lang;
-				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".SQLHelper", Assembly.GetExecutingAssembly());
-
-				return rm.GetString("SetLanguageLanguageSet");
+				return returnString;
 			}
 			catch (SQLiteException ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Unbekannter Fehler!" + "\r\n\r\n" + ex.ToString();
+				return "Die angegebene Sprache existiert nicht!" + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
