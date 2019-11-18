@@ -140,7 +140,22 @@ namespace adhdb
 						{
 							if (checkRights(msg, row["CommandRights"].ToString()))
 							{
-								await msg.Channel.SendMessageAsync(">>> " + row["CommandComment"].ToString());
+								try
+								{
+									//Check, if there is a translation for this command
+									if (!String.IsNullOrEmpty(row["CommandComment_" + Properties.Settings.Default.Language].ToString()))
+									{
+										await msg.Channel.SendMessageAsync(">>> " + row["CommandComment_" + Properties.Settings.Default.Language].ToString());
+									}
+									else
+									{
+										throw new Exception();
+									}
+								}
+								catch (Exception ex)
+								{
+									await msg.Channel.SendMessageAsync(">>> " + row["CommandComment"].ToString());
+								}
 							}
 							else
 							{

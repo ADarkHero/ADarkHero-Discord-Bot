@@ -103,7 +103,7 @@ namespace adhdb.bot
 		}
 
 		/// <summary>
-		/// 
+		/// Lists all functions
 		/// </summary>
 		/// <returns></returns>
 		public String ListAllFunctions()
@@ -120,7 +120,24 @@ namespace adhdb.bot
 					{
 						returnString += Properties.Settings.Default.DiscordChar;
 					}
-					returnString += row["CommandName"].ToString() + "**: " + row["CommandComment"].ToString() + "\r\n";
+					try
+					{
+						if (!String.IsNullOrEmpty(row["CommandComment_" + Properties.Settings.Default.Language].ToString()))
+						{
+							returnString += row["CommandComment_" + Properties.Settings.Default.Language].ToString();
+						}
+						else
+						{
+							throw new Exception();
+						}
+
+					}
+					catch (Exception ex)
+					{
+						returnString += row["CommandName"].ToString();
+					}
+
+					returnString += "**: " + row["CommandComment"].ToString() + "\r\n";
 				}
 
 				return returnString;
