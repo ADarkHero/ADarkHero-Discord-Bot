@@ -19,7 +19,8 @@ A Discord Bot made for self hosting and customization.
   * Roll a dice for a specific talent/spell in "Das Schwarze Auge / The Black Eye" [currently only in Germany] (!dsa Kochen, !dsa Sinnenschärfe etc.)
     * There is also the possibility to list all dsa talents.
   * Calculate a dsa crit, that multiplies the number by 1,5 (!crit 20, !crit 15, !crit 6 etc.)
-  * Random loot (!randomloot) with different rarities (!lootrarity)
+  * Random loot (!randomloot) with different rarities (!lootrarity) [currently only in German]
+  * Ideas for interesting characters (!characterIdea)
 * **League of Legends**
   * Show meta builds for league champions (!lol Ashe, !lol Lux, !lol Gnar etc.)
 * **Youtube**
