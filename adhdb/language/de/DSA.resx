@@ -126,8 +126,14 @@
   <data name="CritMissingNumber" xml:space="preserve">
     <value>Kritischer Fehlschlag! Es wurde vergessen, eine Zahl einzugeben, die berechnet werden soll!</value>
   </data>
+  <data name="DisplayCharacterGeneratorError" xml:space="preserve">
+    <value>Unbekannter Fehler.</value>
+  </data>
   <data name="DisplayCharacterGeneratorInfo" xml:space="preserve">
     <value>Versuche mindestens fünf der aufgelisteten Eigenschaften zu verwenden, um einen interessanten Charakter, inklusive Backstory, zu erstellen.</value>
+  </data>
+  <data name="GenerateCharacterTropeError" xml:space="preserve">
+    <value>Unbekannter Fehler.</value>
   </data>
   <data name="ListAllDSAFunctionsError" xml:space="preserve">
     <value>Unbekannter Fehler.</value>

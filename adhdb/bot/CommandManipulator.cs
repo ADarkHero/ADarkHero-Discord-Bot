@@ -16,6 +16,8 @@ namespace adhdb.bot
 		{
 			try
 			{
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".CommandManipulator", Assembly.GetExecutingAssembly());
+
 				Msg = message;
 			}
 			catch (Exception ex)
@@ -32,8 +34,6 @@ namespace adhdb.bot
 		{
 			try
 			{
-				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".CommandManipulator", Assembly.GetExecutingAssembly());
-
 				var user = Msg.Author as SocketGuildUser;
 				var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
 
@@ -70,6 +70,37 @@ namespace adhdb.bot
 				return rm.GetString("AddNewCommandError") + "\r\n\r\n" + ex.ToString();
 			}
 
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public String ChangeLanguage()
+		{
+			try
+			{
+				var user = Msg.Author as SocketGuildUser;
+				var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Role");
+
+				if (user.GuildPermissions.Administrator)
+				{
+					String[] stringPairs = Msg.Content.Split(' ');
+
+					if (stringPairs.Length > 1)
+					{
+						SQLHelper sqlh = new SQLHelper();
+						return sqlh.SetLanguage(stringPairs[1]);
+					}
+				}
+				return rm.GetString("ChangeLanguageMissingRights");
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				//Unknown error!
+				return rm.GetString("ChangeLanguageError") + "\r\n\r\n" + ex.ToString();
+			}
 		}
 	}
 }

@@ -234,6 +234,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Dice.resx</DependentUpon>
     </Compile>
+    <Compile Include="language\de\SQLHelper.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLHelper.resx</DependentUpon>
+    </Compile>
     <Compile Include="language\de\Wikipedia.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -273,6 +278,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Program.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\en\SQLHelper.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLHelper.resx</DependentUpon>
     </Compile>
     <Compile Include="language\en\Wikipedia.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -314,6 +324,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Dice1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="language\de\SQLHelper.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SQLHelper.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="language\de\Wikipedia.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Wikipedia.Designer.cs</LastGenOutput>
@@ -345,6 +359,10 @@
     <EmbeddedResource Include="language\en\Program.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Program1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\SQLHelper.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SQLHelper.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="language\en\Wikipedia.resx">
       <Generator>ResXFileCodeGenerator</Generator>

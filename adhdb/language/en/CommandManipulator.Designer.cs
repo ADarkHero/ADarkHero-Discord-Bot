@@ -86,5 +86,23 @@ namespace adhdb.language.en {
                 return ResourceManager.GetString("AddNewCommandMissingRights", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error!.
+        /// </summary>
+        internal static string ChangeLanguageError {
+            get {
+                return ResourceManager.GetString("ChangeLanguageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only server admins can use this command..
+        /// </summary>
+        internal static string ChangeLanguageMissingRights {
+            get {
+                return ResourceManager.GetString("ChangeLanguageMissingRights", resourceCulture);
+            }
+        }
     }
 }

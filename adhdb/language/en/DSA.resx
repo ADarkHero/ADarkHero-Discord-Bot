@@ -126,8 +126,14 @@
   <data name="CritMissingNumber" xml:space="preserve">
     <value>Critical mistake! You forgot to put in a number to calculate.</value>
   </data>
+  <data name="DisplayCharacterGeneratorError" xml:space="preserve">
+    <value>Unknown error.</value>
+  </data>
   <data name="DisplayCharacterGeneratorInfo" xml:space="preserve">
     <value>Try to use at least five tropes, to generate an interesting character, including backstory.</value>
+  </data>
+  <data name="GenerateCharacterTropeError" xml:space="preserve">
+    <value>Unknown error.</value>
   </data>
   <data name="ListAllDSAFunctionsError" xml:space="preserve">
     <value>Unknown error.</value>

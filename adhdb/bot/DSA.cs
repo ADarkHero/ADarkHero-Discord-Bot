@@ -289,7 +289,10 @@ namespace adhdb.bot
 			}
 		}
 
-
+		/// <summary>
+		/// Takes 10 different tropes for characters and shows it to the user.
+		/// </summary>
+		/// <returns>String that should be displayed by the bot.</returns>
 		public String DisplayCharacterGenerator()
 		{
 			try
@@ -305,10 +308,14 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return rm.GetString("ListAllDSAFunctionsError") + "\r\n\r\n" + ex.ToString();
+				return rm.GetString("DisplayCharacterGeneratorError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
+		/// <summary>
+		/// Reads trope details from tvtropes.
+		/// </summary>
+		/// <returns>A DSACharacterTrope object with all the tropes informations.</returns>
 		private DSACharacterTrope GenerateCharacterTrope()
 		{
 			try
@@ -324,7 +331,7 @@ namespace adhdb.bot
 				}
 				catch (Exception ex)
 				{
-					return new DSACharacterTrope("", "", "");
+					return new DSACharacterTrope("", ex.ToString(), rm.GetString("GenerateCharacterTropeError"));
 				}
 
 				var doc = new HtmlDocument();
@@ -347,7 +354,6 @@ namespace adhdb.bot
 					}
 					if (metaname.Contains("twitter:description"))
 					{
-						//Remove "&hellip;" from string; This sometimes appears at the end of the string
 						c.Description = content + "...";
 					}
 				}
@@ -357,7 +363,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return new DSACharacterTrope("", "", "");
+				return new DSACharacterTrope("", ex.ToString(), rm.GetString("GenerateCharacterTropeError"));
 			}
 		}
 

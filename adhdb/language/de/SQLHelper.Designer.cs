@@ -22,14 +22,14 @@ namespace adhdb.language.de {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CommandManipulator {
+    internal class SQLHelper {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CommandManipulator() {
+        internal SQLHelper() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace adhdb.language.de {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("adhdb.language.de.CommandManipulator", typeof(CommandManipulator).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("adhdb.language.de.SQLHelper", typeof(SQLHelper).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace adhdb.language.de {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unbekannter Fehler!.
+        ///   Looks up a localized string similar to Die Sprache wurde erfolgreich angepasst!.
         /// </summary>
-        internal static string AddNewCommandError {
+        internal static string SetLanguageLanguageSet {
             get {
-                return ResourceManager.GetString("AddNewCommandError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bitte gib alle notwendigen Argumente ein. z.B.: !addcommand ping Pong Pong Pong..
-        /// </summary>
-        internal static string AddNewCommandMissingArguments {
-            get {
-                return ResourceManager.GetString("AddNewCommandMissingArguments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dieser Befehl steht nur Administratoren zur Verfügung..
-        /// </summary>
-        internal static string AddNewCommandMissingRights {
-            get {
-                return ResourceManager.GetString("AddNewCommandMissingRights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unbekannter Fehler!.
-        /// </summary>
-        internal static string ChangeLanguageError {
-            get {
-                return ResourceManager.GetString("ChangeLanguageError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dieser Befehl steht nur Administratoren zur Verfügung..
-        /// </summary>
-        internal static string ChangeLanguageMissingRights {
-            get {
-                return ResourceManager.GetString("ChangeLanguageMissingRights", resourceCulture);
+                return ResourceManager.GetString("SetLanguageLanguageSet", resourceCulture);
             }
         }
     }

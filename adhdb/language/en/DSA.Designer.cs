@@ -88,11 +88,29 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown error..
+        /// </summary>
+        internal static string DisplayCharacterGeneratorError {
+            get {
+                return ResourceManager.GetString("DisplayCharacterGeneratorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Try to use at least five tropes, to generate an interesting character, including backstory..
         /// </summary>
         internal static string DisplayCharacterGeneratorInfo {
             get {
                 return ResourceManager.GetString("DisplayCharacterGeneratorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error..
+        /// </summary>
+        internal static string GenerateCharacterTropeError {
+            get {
+                return ResourceManager.GetString("GenerateCharacterTropeError", resourceCulture);
             }
         }
         

@@ -126,4 +126,10 @@
   <data name="AddNewCommandMissingRights" xml:space="preserve">
     <value>Dieser Befehl steht nur Administratoren zur Verfügung.</value>
   </data>
+  <data name="ChangeLanguageError" xml:space="preserve">
+    <value>Unbekannter Fehler!</value>
+  </data>
+  <data name="ChangeLanguageMissingRights" xml:space="preserve">
+    <value>Dieser Befehl steht nur Administratoren zur Verfügung.</value>
+  </data>
 </root>

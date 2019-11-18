@@ -164,7 +164,7 @@ namespace adhdb.bot
 				catch (Exception ex) { Console.WriteLine(ex.ToString()); }
 
 				//The result is XX.
-				returnStr += "\r\n" + String.Format(rm.GetString("RollMultipleStrManipulation"), sum.ToString());
+				returnStr += "\r\n" + String.Format(rm.GetString("RollMultipleStrResult"), sum.ToString());
 
 				return returnStr;
 			}

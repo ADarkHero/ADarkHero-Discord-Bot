@@ -3,6 +3,8 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 
 namespace adhdb.bot
 {
@@ -12,14 +14,19 @@ namespace adhdb.bot
 
 		private SocketMessage Msg;
 
+		private ResourceManager rm;
+
 		public SQLHelper()
 		{
+			rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".SQLHelper", Assembly.GetExecutingAssembly());
 		}
 		public SQLHelper(SocketMessage message)
 		{
 			try
 			{
 				Msg = message;
+
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".SQLHelper", Assembly.GetExecutingAssembly());
 			}
 			catch (Exception ex)
 			{
@@ -95,8 +102,6 @@ namespace adhdb.bot
 
 		}
 
-
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -157,5 +162,36 @@ namespace adhdb.bot
 			}
 
 		}
+
+		/// <summary>
+		/// Writes the language to the database
+		/// </summary>
+		/// <param name="lang">Language code.</param>
+		public String SetLanguage(String lang)
+		{
+			try
+			{
+				SQLiteCommand insertSQL = new SQLiteCommand(
+								"UPDATE settings " +
+								"SET SettingsValue = @param1 " +
+								"WHERE SettingsName = 'Language'", sqlite);
+				insertSQL.Parameters.Add(new SQLiteParameter("@param1", lang));
+
+				sqlite.Open();  //Initiate connection to the db
+
+				insertSQL.ExecuteNonQuery();
+
+				Properties.Settings.Default.Language = lang;
+				rm = new ResourceManager("adhdb.language." + Properties.Settings.Default.Language + ".SQLHelper", Assembly.GetExecutingAssembly());
+
+				return rm.GetString("SetLanguageLanguageSet");
+			}
+			catch (SQLiteException ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return "Unbekannter Fehler!" + "\r\n\r\n" + ex.ToString();
+			}
+		}
+
 	}
 }

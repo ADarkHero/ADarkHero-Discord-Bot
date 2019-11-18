@@ -117,19 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewCommandError" xml:space="preserve">
-    <value>Unknown error!</value>
-  </data>
-  <data name="AddNewCommandMissingArguments" xml:space="preserve">
-    <value>Please input all relevant arguments. For example: !addcommand ping Pong Pong Pong.</value>
-  </data>
-  <data name="AddNewCommandMissingRights" xml:space="preserve">
-    <value>Only server admins can use this command.</value>
-  </data>
-  <data name="ChangeLanguageError" xml:space="preserve">
-    <value>Unknown error!</value>
-  </data>
-  <data name="ChangeLanguageMissingRights" xml:space="preserve">
-    <value>Only server admins can use this command.</value>
+  <data name="SetLanguageLanguageSet" xml:space="preserve">
+    <value>Die Sprache wurde erfolgreich angepasst!</value>
   </data>
 </root>
