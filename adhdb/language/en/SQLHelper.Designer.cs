@@ -61,6 +61,42 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while creating the command..
+        /// </summary>
+        internal static string InsertNewCommandError {
+            get {
+                return ResourceManager.GetString("InsertNewCommandError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following command was successfully created:.
+        /// </summary>
+        internal static string InsertNewCommandSuccess {
+            get {
+                return ResourceManager.GetString("InsertNewCommandSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error..
+        /// </summary>
+        internal static string ListAllFunctionsError {
+            get {
+                return ResourceManager.GetString("ListAllFunctionsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The language does not exist..
+        /// </summary>
+        internal static string SetLanguageLanguageNotExistent {
+            get {
+                return ResourceManager.GetString("SetLanguageLanguageNotExistent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The language was changed successfully!.
         /// </summary>
         internal static string SetLanguageLanguageSet {

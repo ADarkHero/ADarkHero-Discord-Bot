@@ -61,6 +61,42 @@ namespace adhdb.language.de {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fehler beim Anlegen des commands..
+        /// </summary>
+        internal static string InsertNewCommandError {
+            get {
+                return ResourceManager.GetString("InsertNewCommandError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Das folgende command wurde erfolgreich angelegt:.
+        /// </summary>
+        internal static string InsertNewCommandSuccess {
+            get {
+                return ResourceManager.GetString("InsertNewCommandSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannter Fehler..
+        /// </summary>
+        internal static string ListAllFunctionsError {
+            get {
+                return ResourceManager.GetString("ListAllFunctionsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die angegebene Sprache existiert nicht..
+        /// </summary>
+        internal static string SetLanguageLanguageNotExistent {
+            get {
+                return ResourceManager.GetString("SetLanguageLanguageNotExistent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Die Sprache wurde erfolgreich angepasst!.
         /// </summary>
         internal static string SetLanguageLanguageSet {

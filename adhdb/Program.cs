@@ -222,7 +222,7 @@ namespace adhdb
 		}
 
 		/// <summary>
-		/// 
+		/// Checks messages for received reactions.
 		/// </summary>
 		/// <param name="cachedMessage"></param>
 		/// <param name="originChannel"></param>

@@ -91,12 +91,12 @@ namespace adhdb.bot
 				sqlite.Open();  //Initiate connection to the db
 
 				insertSQL.ExecuteNonQuery();
-				return "Das folgende command wurde erfolgreich angelegt:\r\n" + commandName + " | " + commandText;
+				return rm.GetString("ListAllFunctionsSuccess") + "\r\n" + commandName + " | " + commandText;
 			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Fehler beim Anlegen des commands.\r\n\r\n" + ex.Message;
+				return rm.GetString("ListAllFunctionsError") + "\r\n\r\n" + ex.Message;
 			}
 
 
@@ -128,7 +128,7 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
+				return rm.GetString("ListAllFunctionsError") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
@@ -191,7 +191,7 @@ namespace adhdb.bot
 			catch (SQLiteException ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Die angegebene Sprache existiert nicht!" + "\r\n\r\n" + ex.ToString();
+				return rm.GetString("SetLanguageLanguageNotExistent") + "\r\n\r\n" + ex.ToString();
 			}
 		}
 
