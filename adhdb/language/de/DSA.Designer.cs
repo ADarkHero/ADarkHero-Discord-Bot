@@ -88,6 +88,24 @@ namespace adhdb.language.de {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Versuche mindestens fünf der aufgelisteten Eigenschaften zu verwenden, um einen interessanten Charakter, inklusive Backstory, zu erstellen..
+        /// </summary>
+        internal static string DisplayCharacterGeneratorInfo {
+            get {
+                return ResourceManager.GetString("DisplayCharacterGeneratorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannter Fehler..
+        /// </summary>
+        internal static string ListAllDSAFunctionsError {
+            get {
+                return ResourceManager.GetString("ListAllDSAFunctionsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unbekannter Fehler..
         /// </summary>
         internal static string LootChancesError {

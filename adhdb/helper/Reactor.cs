@@ -12,18 +12,6 @@ namespace adhdb.bot
 
 		}
 
-		public Reactor(IUserMessage msg)
-		{
-			try
-			{
-				ReactorAsync(msg);
-			}
-			catch (Exception ex)
-			{
-				Logger logger = new Logger(ex.ToString());
-			}
-		}
-
 		/// <summary>
 		/// Checks if the message contains specific strings.
 		/// </summary>
@@ -149,11 +137,12 @@ namespace adhdb.bot
 				Logger logger = new Logger(ex.ToString());
 			}
 		}
+
 		/// <summary>
-		/// 
+		/// Checks for specific reactions and reacts to them.
 		/// </summary>
-		/// <param name="cachedMessage"></param>
-		/// <param name="reaction"></param>
+		/// <param name="cachedMessage">Message that should be reacted to.</param>
+		/// <param name="reaction">Reaction that was added to the message.</param>
 		/// <returns></returns>
 		public async Task ReactToReactions(Cacheable<IUserMessage, ulong> cachedMessage, SocketReaction reaction)
 		{

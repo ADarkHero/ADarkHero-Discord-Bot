@@ -1,8 +1,12 @@
-﻿using Discord.WebSocket;
+﻿using adhdb.bot.DSAObj;
+using Discord.WebSocket;
+using HtmlAgilityPack;
 using System;
 using System.Data;
+using System.Net;
 using System.Reflection;
 using System.Resources;
+using System.Text.RegularExpressions;
 
 namespace adhdb.bot
 {
@@ -281,7 +285,79 @@ namespace adhdb.bot
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());
-				return "Unbekannter Fehler!\r\n\r\n" + ex.ToString();
+				return rm.GetString("ListAllDSAFunctionsError") + "\r\n\r\n" + ex.ToString();
+			}
+		}
+
+
+		public String DisplayCharacterGenerator()
+		{
+			try
+			{
+				String returnString = rm.GetString("DisplayCharacterGeneratorInfo") + "\r\n\r\n\r\n";
+				for (int i = 0; i < 10; i++)
+				{
+					DSACharacterTrope dsa = GenerateCharacterTrope();
+					returnString += "**" + dsa.Name + "** (" + dsa.Link + ")" + "\r\n\r\n";
+				}
+				return returnString;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return rm.GetString("ListAllDSAFunctionsError") + "\r\n\r\n" + ex.ToString();
+			}
+		}
+
+		private DSACharacterTrope GenerateCharacterTrope()
+		{
+			try
+			{
+				String url = "https://tvtropes.org/pmwiki/randomitem.php?p=1";
+				String htmlCode = "";
+				try
+				{
+					WebClient client = new WebClient();
+					client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36");
+
+					htmlCode = client.DownloadString(url);
+				}
+				catch (Exception ex)
+				{
+					return new DSACharacterTrope("", "", "");
+				}
+
+				var doc = new HtmlDocument();
+				doc.LoadHtml(htmlCode);
+
+				DSACharacterTrope c = new DSACharacterTrope();
+				var list = doc.DocumentNode.SelectNodes("//meta");
+				foreach (var node in list)
+				{
+					string metaname = node.GetAttributeValue("name", "");
+					string content = node.GetAttributeValue("content", "");
+
+					if (metaname.Contains("twitter:title"))
+					{
+						//Remove " - TV Tropes" from string
+						content = content.Substring(0, content.IndexOf(" - TV Tropes"));
+						c.Name = content;
+						//Generate Link for the trope
+						c.Link = "https://tvtropes.org/pmwiki/pmwiki.php/Main/" + Regex.Replace(content, "/[^A-Za-z0-9]/", "").Replace(" ", "");
+					}
+					if (metaname.Contains("twitter:description"))
+					{
+						//Remove "&hellip;" from string; This sometimes appears at the end of the string
+						c.Description = content + "...";
+					}
+				}
+
+				return c;
+			}
+			catch (Exception ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return new DSACharacterTrope("", "", "");
 			}
 		}
 

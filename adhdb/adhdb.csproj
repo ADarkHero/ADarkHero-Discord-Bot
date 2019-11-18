@@ -190,6 +190,7 @@
     <Compile Include="bot\CommandManipulator.cs" />
     <Compile Include="bot\Dice.cs" />
     <Compile Include="bot\DSA.cs" />
+    <Compile Include="bot\DSAObj\DSACharacterTrope.cs" />
     <Compile Include="bot\GitHub.cs" />
     <Compile Include="helper\Logger.cs" />
     <Compile Include="bot\LoL.cs" />
