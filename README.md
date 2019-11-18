@@ -25,6 +25,8 @@ A Discord Bot made for self hosting and customization.
   * Show meta builds for league champions (!lol Ashe, !lol Lux, !lol Gnar etc.)
 * **Youtube**
   * Display a Youtube video, based on user inputs (!yt All Star, !yt asdf etc.)
+* **Spotify**
+  * Display a Spotify song, based on user inputs (!spotify All Star, !spotify true damage giants etc.)
 * **Wikipedia**
   * Searches Wikipedia (!wiki League of Legends, !wiki Penis etc.)
 * **GitHub**
@@ -41,8 +43,9 @@ A Discord Bot made for self hosting and customization.
 ## Uses the following C# packages
 * .NET Framework 4.6.1
 * Discord.Net
-* HtmlAgilityPack
-* Newtonsoft.Json
+* HtmlAgilityPack (for League of Legends & DSA)
+* Newtonsoft.Json (for GitHub & Youtube)
+* SpotifyAPI.WEB (for Spotify)
 
 ## Quick setup guide
 * Download the most recent [Release](https://github.com/ADarkHero/ADarkHero-Discord-Bot/releases)
