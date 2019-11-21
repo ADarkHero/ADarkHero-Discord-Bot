@@ -74,7 +74,7 @@ namespace adhdb.bot
 					return item.Tracks.Items[0].Id;
 				}
 
-				return rm.GetString("SearchSpotifyTrackAsyncMissingSearchTerm"); ;
+				return rm.GetString("SearchSpotifyTrackAsyncMissingSearchTerm");
 			}
 			catch (Exception ex)
 			{

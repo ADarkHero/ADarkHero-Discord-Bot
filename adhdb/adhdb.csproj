@@ -200,6 +200,7 @@
     <Compile Include="bot\DSAObj\DSACharacterTrope.cs" />
     <Compile Include="bot\GitHub.cs" />
     <Compile Include="bot\Spotify.cs" />
+    <Compile Include="bot\Stuff.cs" />
     <Compile Include="helper\Logger.cs" />
     <Compile Include="bot\LoL.cs" />
     <Compile Include="helper\Reactor.cs" />
@@ -252,6 +253,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLHelper.resx</DependentUpon>
     </Compile>
+    <Compile Include="language\de\Stuff.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Stuff.resx</DependentUpon>
+    </Compile>
     <Compile Include="language\de\Wikipedia.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -302,6 +308,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLHelper.resx</DependentUpon>
     </Compile>
+    <Compile Include="language\en\Stuff.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Stuff.resx</DependentUpon>
+    </Compile>
     <Compile Include="language\en\Wikipedia.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -350,6 +361,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SQLHelper.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="language\de\Stuff.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Stuff.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="language\de\Wikipedia.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Wikipedia.Designer.cs</LastGenOutput>
@@ -389,6 +404,10 @@
     <EmbeddedResource Include="language\en\SQLHelper.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SQLHelper.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\Stuff.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Stuff.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="language\en\Wikipedia.resx">
       <Generator>ResXFileCodeGenerator</Generator>
