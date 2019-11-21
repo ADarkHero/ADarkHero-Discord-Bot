@@ -35,12 +35,70 @@ namespace adhdb.bot
 			{
 				String content = usermsg.Content.ToLower();
 
+				if (content.Contains("162591575250042881"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🍜"));
+				}
+
+				if (content.Contains("189035680310099968"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🦑"));
+				}
+
+				if (content.Contains("189031931701231616"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐧"));
+					await usermsg.AddReactionAsync(new Emoji("⚔"));
+				}
+
+				if (content.Contains("565867907423404035"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🦴"));
+				}
+
+				if (content.Contains("638730142687952896"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🍞"));
+				}
+
+				if (content.Contains("347809880540971028"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("👻"));
+				}
+
+				if (content.Contains("84978507234410496"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐧"));
+				}
+
+				if (content.Contains("345633776199794689"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("\U0001F1F1"));
+					await usermsg.AddReactionAsync(new Emoji("\U0001F1FA"));
+					await usermsg.AddReactionAsync(new Emoji("\U0001F1E6"));
+				}
+
+				if (content.Contains("184216641314357248"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("👄"));
+				}
+
+				if (content.Contains("219229420420988929"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐦"));
+				}
+
+				if (content.Contains("245589394759745536"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🧅"));
+				}
+
 				if (content.Contains("69") ||
-					content.Contains("lewd") ||
-					content.Contains("nude") ||
-					content.Contains("penis") ||
-					content.Contains("sex") ||
-					content.Contains("friends"))
+				content.Contains("lewd") ||
+				content.Contains("nude") ||
+				content.Contains("penis") ||
+				content.Contains("sex") ||
+				content.Contains("friends"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("😏"));
 				}
@@ -102,7 +160,7 @@ namespace adhdb.bot
 					await usermsg.AddReactionAsync(new Emoji("🦀"));
 				}
 
-				if (content.Contains("nicole"))
+				if (content.Contains("nicole") || content.Contains("347809880540971028"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("💕"));
 				}
@@ -112,7 +170,7 @@ namespace adhdb.bot
 					await usermsg.AddReactionAsync(new Emoji("💖"));
 				}
 
-				if (content.Contains("jaden"))
+				if (content.Contains("jaden") || content.Contains("140236351315509248"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🐈"));
 				}
@@ -129,7 +187,8 @@ namespace adhdb.bot
 
 				if (content.Contains("rip"))
 				{
-					await usermsg.AddReactionAsync(new Emoji("☠"));
+					//F
+					await usermsg.AddReactionAsync(new Emoji("\U0001F1EB"));
 				}
 			}
 			catch (Exception ex)
