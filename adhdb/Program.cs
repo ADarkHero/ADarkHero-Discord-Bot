@@ -61,6 +61,8 @@ namespace adhdb
 				_client.ReactionAdded += ReactionReceivedAsync;
 				_client.Log += LogAsync;
 				await _client.LoginAsync(TokenType.Bot, Properties.Settings.Default.DiscordToken);
+				await _client.SetGameAsync("since " + DateTime.Now.ToString("dd.MM.yyyy HH:mm"), null, ActivityType.Watching);
+				await _client.SetStatusAsync(UserStatus.DoNotDisturb);
 				await _client.StartAsync();
 
 				// Block this task until the program is closed.

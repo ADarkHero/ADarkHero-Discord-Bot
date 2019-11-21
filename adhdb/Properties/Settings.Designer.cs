@@ -70,5 +70,29 @@ namespace adhdb.Properties {
                 this["DiscordToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyClientID {
+            get {
+                return ((string)(this["SpotifyClientID"]));
+            }
+            set {
+                this["SpotifyClientID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyClientSecret {
+            get {
+                return ((string)(this["SpotifyClientSecret"]));
+            }
+            set {
+                this["SpotifyClientSecret"] = value;
+            }
+        }
     }
 }

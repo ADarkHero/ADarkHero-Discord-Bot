@@ -117,47 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CritDamage" xml:space="preserve">
-    <value>Critical hit! **{0}** damage!</value>
+  <data name="SearchSpotifyTrackAsyncError" xml:space="preserve">
+    <value>Unbekannter Fehler!</value>
   </data>
-  <data name="CritError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="CritMissingNumber" xml:space="preserve">
-    <value>Critical mistake! You forgot to put in a number to calculate.</value>
-  </data>
-  <data name="DisplayCharacterGeneratorError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="DisplayCharacterGeneratorInfo" xml:space="preserve">
-    <value>Try to use at least five tropes, to generate an interesting character, including backstory.</value>
-  </data>
-  <data name="GenerateCharacterTropeError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="ListAllDSAFunctionsError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="LootChancesError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="MultipleLootStrError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="RandomLootStrError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="RollDSABase" xml:space="preserve">
-    <value>&lt;@{0}&gt; rolls for {1}:</value>
-  </data>
-  <data name="RollDSABaseWithoutTalent" xml:space="preserve">
-    <value>&lt;@{0}&gt; rolled the following:</value>
-  </data>
-  <data name="RollDSAError" xml:space="preserve">
-    <value>Unknown error.</value>
-  </data>
-  <data name="RollDSATalentNonExistent" xml:space="preserve">
-    <value>The talent does not exist. Did you mistype?
-**Note**: The talent names do not include spaces or special characters. "Heilkunde: Wunden" would be HeilkundeWunden. Casing is ignored. Currently all talents are German only.</value>
+  <data name="SearchSpotifyTrackAsyncMissingSearchTerm" xml:space="preserve">
+    <value>Bitte eine Suchanfrage eingeben!</value>
   </data>
 </root>

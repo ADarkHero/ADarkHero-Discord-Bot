@@ -157,6 +157,7 @@
     <value>Unbekannter Fehler.</value>
   </data>
   <data name="RollDSATalentNonExistent" xml:space="preserve">
-    <value>Das Talent existiert nicht. Wurde sich eventuell vertippt?</value>
+    <value>Das Talent existiert nicht. Wurde sich eventuell vertippt?
+**Notiz**: Die Talentnamen haben KEINE Leer- oder Sonderzeichen. Heilkunde: Wunden wäre also beispielsweise HeilkundeWunden. Groß-/Kleinschreibung wird jedoch ignoriert.</value>
   </data>
 </root>

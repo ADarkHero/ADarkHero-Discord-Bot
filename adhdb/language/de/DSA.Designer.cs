@@ -178,7 +178,8 @@ namespace adhdb.language.de {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Das Talent existiert nicht. Wurde sich eventuell vertippt?.
+        ///   Looks up a localized string similar to Das Talent existiert nicht. Wurde sich eventuell vertippt?
+        ///**Notiz**: Die Talentnamen haben KEINE Leer- oder Sonderzeichen. Heilkunde: Wunden wäre also beispielsweise HeilkundeWunden. Groß-/Kleinschreibung wird jedoch ignoriert..
         /// </summary>
         internal static string RollDSATalentNonExistent {
             get {

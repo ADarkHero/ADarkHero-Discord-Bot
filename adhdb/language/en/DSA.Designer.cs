@@ -151,7 +151,7 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;@{0}&gt;rolls for {1}:.
+        ///   Looks up a localized string similar to &lt;@{0}&gt; rolls for {1}:.
         /// </summary>
         internal static string RollDSABase {
             get {
@@ -178,7 +178,8 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The talent does not exist. Did you mistype?.
+        ///   Looks up a localized string similar to The talent does not exist. Did you mistype?
+        ///**Note**: The talent names do not include spaces or special characters. &quot;Heilkunde: Wunden&quot; would be HeilkundeWunden. Casing is ignored. Currently all talents are German only..
         /// </summary>
         internal static string RollDSATalentNonExistent {
             get {

@@ -53,7 +53,7 @@ namespace adhdb.bot
 					foreach (DataRow row in dt.Rows)
 					{
 						//@Auther rolls for the talent XX:
-						returnString = String.Format(rm.GetString("RollStrBase"), Msg.Author.Id, row["DSATalentName"].ToString()) + "\r\n" +
+						returnString = String.Format(rm.GetString("RollDSABase"), Msg.Author.Id, row["DSATalentName"].ToString()) + "\r\n" +
 										"**" + row["DSATrait1"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
 										"**" + row["DSATrait2"].ToString() + ": " + d.Roll(20).ToString() + "** | " +
 										"**" + row["DSATrait3"].ToString() + ": " + d.Roll(20).ToString() + "**";

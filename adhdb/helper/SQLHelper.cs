@@ -36,7 +36,7 @@ namespace adhdb.bot
 
 
 		/// <summary>
-		/// 
+		/// Reads settings from the database and saves them to setting variables.
 		/// </summary>
 		public void ReadSettings()
 		{
@@ -63,6 +63,18 @@ namespace adhdb.bot
 					if (row["SettingsName"].ToString() == "Language")
 					{
 						Properties.Settings.Default.Language = row["SettingsValue"].ToString();
+						Properties.Settings.Default.Save();
+					}
+
+					if (row["SettingsName"].ToString() == "SpotifyClientID")
+					{
+						Properties.Settings.Default.SpotifyClientID = row["SettingsValue"].ToString();
+						Properties.Settings.Default.Save();
+					}
+
+					if (row["SettingsName"].ToString() == "SpotifyClientSecret")
+					{
+						Properties.Settings.Default.SpotifyClientSecret = row["SettingsValue"].ToString();
 						Properties.Settings.Default.Save();
 					}
 				}

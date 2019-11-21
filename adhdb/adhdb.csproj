@@ -103,8 +103,15 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SpotifyAPI.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpotifyAPI.Web.4.0.0\lib\net46\SpotifyAPI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="SpotifyAPI.Web.Auth, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpotifyAPI.Web.Auth.3.0.0\lib\SpotifyAPI.Web.Auth.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -192,6 +199,7 @@
     <Compile Include="bot\DSA.cs" />
     <Compile Include="bot\DSAObj\DSACharacterTrope.cs" />
     <Compile Include="bot\GitHub.cs" />
+    <Compile Include="bot\Spotify.cs" />
     <Compile Include="helper\Logger.cs" />
     <Compile Include="bot\LoL.cs" />
     <Compile Include="helper\Reactor.cs" />
@@ -233,6 +241,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Dice.resx</DependentUpon>
+    </Compile>
+    <Compile Include="language\de\Spotify.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Spotify.resx</DependentUpon>
     </Compile>
     <Compile Include="language\de\SQLHelper.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -279,6 +292,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Program.resx</DependentUpon>
     </Compile>
+    <Compile Include="language\en\Spotify.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Spotify.resx</DependentUpon>
+    </Compile>
     <Compile Include="language\en\SQLHelper.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,6 +342,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Dice1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="language\de\Spotify.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Spotify.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="language\de\SQLHelper.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SQLHelper.Designer.cs</LastGenOutput>
@@ -359,6 +381,10 @@
     <EmbeddedResource Include="language\en\Program.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Program1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="language\en\Spotify.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Spotify.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="language\en\SQLHelper.resx">
       <Generator>ResXFileCodeGenerator</Generator>
