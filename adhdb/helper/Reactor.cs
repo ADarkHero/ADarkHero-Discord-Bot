@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace adhdb.bot
@@ -92,6 +93,13 @@ namespace adhdb.bot
 				{
 					await usermsg.AddReactionAsync(new Emoji("🧅"));
 				}
+
+
+
+				//Removes userids from the string, to not trigger multiple reactions
+				content = Regex.Replace(content, @"<@.*\d+>", "");
+
+
 
 				if (content.Contains("69") ||
 				content.Contains("lewd") ||
