@@ -61,7 +61,7 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unbekannter Fehler!.
+        ///   Looks up a localized string similar to Unknown error..
         /// </summary>
         internal static string SearchSpotifyTrackAsyncError {
             get {
@@ -70,11 +70,20 @@ namespace adhdb.language.en {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bitte eine Suchanfrage eingeben!.
+        ///   Looks up a localized string similar to Please input a search term!.
         /// </summary>
         internal static string SearchSpotifyTrackAsyncMissingSearchTerm {
             get {
                 return ResourceManager.GetString("SearchSpotifyTrackAsyncMissingSearchTerm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We found no result on Spotify..
+        /// </summary>
+        internal static string SearchSpotifyTrackAsyncTrackNotFound {
+            get {
+                return ResourceManager.GetString("SearchSpotifyTrackAsyncTrackNotFound", resourceCulture);
             }
         }
     }

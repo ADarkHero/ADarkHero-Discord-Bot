@@ -59,5 +59,32 @@ namespace adhdb.language.de {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannter Fehler!.
+        /// </summary>
+        internal static string SearchSpotifyTrackAsyncError {
+            get {
+                return ResourceManager.GetString("SearchSpotifyTrackAsyncError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bitte eine Suchanfrage eingeben!.
+        /// </summary>
+        internal static string SearchSpotifyTrackAsyncMissingSearchTerm {
+            get {
+                return ResourceManager.GetString("SearchSpotifyTrackAsyncMissingSearchTerm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Suche führte leider zu keinem Treffer..
+        /// </summary>
+        internal static string SearchSpotifyTrackAsyncTrackNotFound {
+            get {
+                return ResourceManager.GetString("SearchSpotifyTrackAsyncTrackNotFound", resourceCulture);
+            }
+        }
     }
 }

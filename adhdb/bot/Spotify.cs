@@ -76,6 +76,11 @@ namespace adhdb.bot
 
 				return rm.GetString("SearchSpotifyTrackAsyncMissingSearchTerm");
 			}
+			catch (ArgumentOutOfRangeException ex)
+			{
+				Logger logger = new Logger(ex.ToString());
+				return rm.GetString("SearchSpotifyTrackAsyncTrackNotFound") + "\r\n\r\n" + ex.ToString();
+			}
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());

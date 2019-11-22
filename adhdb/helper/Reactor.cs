@@ -36,6 +36,10 @@ namespace adhdb.bot
 			{
 				String content = usermsg.Content.ToLower();
 
+				/*
+				 * Reacting to usernames
+				 */
+
 				if (content.Contains("162591575250042881"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🍜"));
@@ -97,9 +101,12 @@ namespace adhdb.bot
 
 
 				//Removes userids from the string, to not trigger multiple reactions
-				content = Regex.Replace(content, @"<@.*\d+>", "");
+				//Also removes every number, that is longer than 3 characters, so the bot will not trigger with links.
+				content = Regex.Replace(content, @"\d{4,}", "");
 
-
+				/*
+				 * Reacting to keywords
+				 */
 
 				if (content.Contains("69") ||
 				content.Contains("lewd") ||
