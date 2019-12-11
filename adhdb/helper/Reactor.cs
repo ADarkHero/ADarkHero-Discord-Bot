@@ -40,62 +40,77 @@ namespace adhdb.bot
 				 * Reacting to usernames
 				 */
 
-				if (content.Contains("162591575250042881"))
+				if (content.Contains("marina") || content.Contains("162591575250042881"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🍜"));
 				}
 
-				if (content.Contains("189035680310099968"))
+				if (content.Contains("lavu") || content.Contains("189035680310099968"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🦑"));
 				}
 
-				if (content.Contains("189031931701231616"))
+				if (content.Contains("fateful") || content.Contains("ruin") || content.Contains("189031931701231616"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🐧"));
 					await usermsg.AddReactionAsync(new Emoji("⚔"));
 				}
 
-				if (content.Contains("565867907423404035"))
+				if (content.Contains("crossy") || content.Contains("bone") || content.Contains("565867907423404035"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🦴"));
 				}
 
-				if (content.Contains("638730142687952896"))
+				if (content.Contains("brot") || content.Contains("638730142687952896"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🍞"));
 				}
 
-				if (content.Contains("347809880540971028"))
+				if (content.Contains("spooky") || content.Contains("347809880540971028"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("👻"));
 				}
 
-				if (content.Contains("84978507234410496"))
+				if (content.Contains("hero") || content.Contains("84978507234410496"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🐧"));
 				}
 
-				if (content.Contains("345633776199794689"))
+				if (content.Contains("lua") || content.Contains("345633776199794689"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("\U0001F1F1"));
 					await usermsg.AddReactionAsync(new Emoji("\U0001F1FA"));
 					await usermsg.AddReactionAsync(new Emoji("\U0001F1E6"));
 				}
 
-				if (content.Contains("184216641314357248"))
+				if (content.Contains("kisa") || content.Contains("184216641314357248"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("👄"));
 				}
 
-				if (content.Contains("219229420420988929"))
+				if (content.Contains("reika") || content.Contains("scarlet") || content.Contains("219229420420988929"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🐦"));
 				}
 
-				if (content.Contains("245589394759745536"))
+				if (content.Contains("onion") || content.Contains("245589394759745536"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🧅"));
+				}
+
+				if (content.Contains("nicole") || content.Contains("347809880540971028"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("💕"));
+				}
+
+				if (content.Contains("jaden") || content.Contains("140236351315509248"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🐈"));
+				}
+
+				if (content.Contains("shiny") || content.Contains("luna") || content.Contains("193327481686720512"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("✨"));
 				}
 
 
@@ -134,14 +149,14 @@ namespace adhdb.bot
 					await usermsg.AddReactionAsync(new Emoji("🖤"));
 				}
 
-				if (content.Contains("42"))
-				{
-					await usermsg.AddReactionAsync(new Emoji("🔥"));
-				}
-
+				//If 420 triggers, 42 should not trigger
 				if (content.Contains("420"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("🍁"));
+				}
+				else if (content.Contains("42"))
+				{
+					await usermsg.AddReactionAsync(new Emoji("🔥"));
 				}
 
 				if (content.Contains("666"))
@@ -175,19 +190,9 @@ namespace adhdb.bot
 					await usermsg.AddReactionAsync(new Emoji("🦀"));
 				}
 
-				if (content.Contains("nicole") || content.Contains("347809880540971028"))
-				{
-					await usermsg.AddReactionAsync(new Emoji("💕"));
-				}
-
 				if (content.Contains("marina"))
 				{
 					await usermsg.AddReactionAsync(new Emoji("💖"));
-				}
-
-				if (content.Contains("jaden") || content.Contains("140236351315509248"))
-				{
-					await usermsg.AddReactionAsync(new Emoji("🐈"));
 				}
 
 				if (content.Contains("coffee") || content.Contains("kaffee"))
