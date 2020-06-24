@@ -210,7 +210,27 @@ namespace adhdb.bot
 					//F
 					await usermsg.AddReactionAsync(new Emoji("\U0001F1EB"));
 				}
-			}
+
+                if (content.Contains("xd"))
+                {
+                    //iksde
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1EE"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1F0"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1F8"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1E9"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1EA"));
+                    await usermsg.AddReactionAsync(new Emoji("😂"));
+                }
+
+                if (content.Contains("line"))
+                {
+                    //lane
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1F1"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1E6"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1F3"));
+                    await usermsg.AddReactionAsync(new Emoji("\U0001F1EA"));
+                }
+            }
 			catch (Exception ex)
 			{
 				Logger logger = new Logger(ex.ToString());

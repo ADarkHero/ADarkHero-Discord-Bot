@@ -52,10 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>BCA8F9210B7ECC290164B277405CBBAA9303B68A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8FD3EA6ED185DA3CA431D7A385A5B714291B978A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ADarkHeroDiscordBot_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>adhdb_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -428,6 +428,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ADarkHeroDiscordBot_TemporaryKey.pfx" />
+    <None Include="adhdb_1_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
