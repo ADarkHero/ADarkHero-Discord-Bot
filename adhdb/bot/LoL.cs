@@ -100,10 +100,10 @@ namespace adhdb.bot
 				build += "**" + buildHelper[i, 0] + "**\r\n🔹 ";
 
 				//Time to get some items
-				String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0] + "\r\n") + 1);
+				String htmlCodeTemp = htmlCode.Substring(htmlCode.IndexOf(buildHelper[i, 0] + "\n") + 1);
 				if (buildHelper[i, 0] == "End items")
 				{
-					htmlCodeTemp = htmlCodeTemp.Substring(0, htmlCodeTemp.IndexOf("Boots\r\n") + 1);
+					htmlCodeTemp = htmlCodeTemp.Substring(0, htmlCodeTemp.IndexOf("Boots\n") + 1);
 				}
 
 				HtmlDocument doc = new HtmlDocument();
